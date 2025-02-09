@@ -1,0 +1,90 @@
+/* styles/Header.module.css */
+
+.navContainer {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: relative;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 10px 15px;
+    display: block;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+}
+
+.submenu li {
+    width: 150px;
+}
+
+.submenu a {
+    padding: 10px;
+    display: block;
+}
+
+.menu li:hover .submenu {
+    display: block;
+}
+
+.hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+        background: #fff;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .menu.active {
+        display: flex;
+    }
+    .hamburger {
+        display: block;
+    }
+}
+
+:global(h1) {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 4rem;
+}
+
+:global(a:hover) {
+    color: darkgreen;
+}
