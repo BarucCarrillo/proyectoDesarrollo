@@ -1,9 +1,7 @@
 /* styles/Header.module.css */
 
 .navContainer {
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
+    padding: 2% 5%;
     position: relative;
 }
 
@@ -22,9 +20,10 @@
 .menu a {
     text-decoration: none;
     color: black;
-    font-size: 18px;
-    padding: 10px 15px;
+    font-size: 1.3rem;
+    padding: 4% 6%;
     display: block;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .submenu {
@@ -33,7 +32,7 @@
     top: 100%;
     left: 0;
     background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 0;
 }
@@ -69,7 +68,7 @@
         top: 50px;
         left: 0;
         width: 100%;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     }
     .menu.active {
         display: flex;
