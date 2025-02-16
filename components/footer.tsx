@@ -16,7 +16,7 @@ export default function Footer() {
             </div>
                 
             <div className={Styles.row}>
-                © 2025 AROMAS - Todos los derechos reservados || Diseñado por: Baruc
+                © 2025 AROMAS - Todos los derechos reservados
             </div>
         </footer>
     );
