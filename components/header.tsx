@@ -22,6 +22,12 @@ export default function Header() {
                 {/* Lista de navegación con clases dinámicas según el estado menuOpen */}
                 <ul className={`${styles.menu} ${menuOpen ? styles.active : ""}`}>
                     <li>
+                        <form action="/views/construccion.html" className={styles.search}>
+                            <input type="text" placeholder="Buscar..." name="search" />
+                            <button type="submit">Buscar</button>
+                        </form>
+                    </li>
+                    <li>
                         <a href="#">Inicio</a>
                         <ul className={styles.submenu}>
                             <li><a href="#">Opción 1</a></li>
@@ -56,6 +62,16 @@ export default function Header() {
                             <li><a href="#">Opción 2</a></li>
                         </ul>
                     </li>
+                    <li> 
+                        <button onClick={() => window.location.href='/views/Formulario.html'} className={styles.button}>
+                            Registro
+                        </button>
+                    </li> 
+                    <li> 
+                        <button onClick={() => window.location.href='/views/Formulario.html'} className={styles.button}>
+                            Iniciar Sesión
+                        </button>
+                    </li> 
                 </ul>
             </nav>
         </header>
