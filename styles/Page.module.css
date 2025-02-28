@@ -1,0 +1,97 @@
+.banner{
+    text-align: center;
+    padding: 6em;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-between;
+  gap: 0; /* Espacio entre columnas */
+}
+
+.banner h1 {
+  color: #000000;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 4em;
+}
+
+.banner h2 {
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.6em;
+}
+
+.bannerImg {
+  width: 70%;
+  height: 70%;
+  padding: 0;
+  margin: 5% 0% 5% 20%;
+  border-radius: 5%;
+}
+
+.columnaIzquierda {
+    margin-top: 10%;
+}
+
+.columnaIzquierda, .columnaDerecha {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.productosEstrella {
+    margin-top: 0;
+    text-align: left;
+    margin: 0 10% 0 10%;
+}
+
+.productosEstrella h2{
+    color: #000000;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3em;
+}
+
+.productosEstrella h3{
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2em;
+    margin-top: 2%;
+}
+
+.perfumesContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 0;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    text-align: center;
+}
+
+.perfumesContainer img {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10%;
+}
+
+.perfumesContainer img:hover {
+  transform: scale(1.01);
+}
+
+.productosNuevos {
+  margin-top: 0;
+  text-align: left;
+  margin: 0 10% 10% 10%;
+}
+.productosNuevos h2{
+  color: #000000;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 3em;
+}
+
+.productosNuevos h3{
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2em;
+  margin-top: 2%;
+}

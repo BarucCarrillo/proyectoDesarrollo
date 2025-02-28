@@ -3,9 +3,40 @@
 // Importamos el hook useState de React
 import { useState } from "react";
 // Importamos los estilos desde el archivo CSS
-import styles from "./Header.module.css"; 
+import styles from "../styles/Header.module.css";
 
 // Definimos el componente funcional Header
+/**
+ * Header component that renders the main navigation header of the application.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <Header />
+ * )
+ * 
+ * @returns {JSX.Element} The rendered header component.
+ * 
+ * @remarks
+ * This component includes a navigation menu with links to different sections of the application.
+ * It also includes a search form and buttons for user registration and login.
+ * 
+ * @description
+ * The `Header` component maintains a state `menuOpen` to handle the visibility of the navigation menu.
+ * It uses dynamic class names to apply styles based on the state.
+ * 
+ * @function
+ * @name Header
+ * 
+ * @returns {JSX.Element} The rendered header component.
+ * 
+ * @example
+ * // Usage example
+ * import Header from './header';
+ * 
+ *       <Header />
+ * */
+
 export default function Header() {
     // Declaramos el estado menuOpen y su función para actualizarlo
     const [menuOpen, setMenuOpen] = useState(false);
@@ -29,10 +60,6 @@ export default function Header() {
                     </li>
                     <li>
                         <a href="#">Inicio</a>
-                        <ul className={styles.submenu}>
-                            <li><a href="#">Opción 1</a></li>
-                            <li><a href="#">Opción 2</a></li>
-                        </ul>
                     </li>
                     <li>
                         <a href="#">Ofertas</a>
@@ -49,16 +76,10 @@ export default function Header() {
                         </ul>
                     </li>
                     <li>
-                        <a href="/views/damas.html">Damas</a>
+                        <a href="/views/damas.html">Generos</a>
                         <ul className={styles.submenu}>
                             <li><a href="#">Opción 1</a></li>
                             <li><a href="#">Opción 2</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Caballeros</a>
-                        <ul className={styles.submenu}>
-                            <li><a href="#">Opción 1</a></li>
                             <li><a href="#">Opción 2</a></li>
                         </ul>
                     </li>

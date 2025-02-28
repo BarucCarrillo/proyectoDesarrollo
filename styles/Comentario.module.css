@@ -1,0 +1,64 @@
+
+.seccioncomentario {
+    width: 60%;
+    height: auto;
+    margin: 5% auto; /* Centra horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+
+.formcomentario {
+    display: flex;
+    justify-content: space-between;
+    gap: 0; /* Espacio entre columnas */
+}
+
+.columnaIzquierda, .columnaDerecha {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.nombrecomentario {
+    margin-bottom: 10px;
+}
+
+.cajacomentario textarea {
+    width: 100%;
+}
+
+.titulocomentario {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.textocomentario {
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 1%;
+    font-weight: bold;
+}
+
+.entcomentario {
+    width: 100%;
+    margin-top: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.botonComentario {
+    background-color: #ffffff;
+    color: #000000;
+    padding: .3rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+}
+
+.botonComentario:hover {
+    background-color: #006400;
+    color: #ffffff;
+}

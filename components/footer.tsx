@@ -1,7 +1,24 @@
 "use client";
 
-import Styles from "./Footer.module.css"; // Importamos los estilos
-import ComentarioStyles from "./Comentario.module.css"; // Importamos los estilos
+import Styles from "../styles/Footer.module.css"; // Importamos los estilos
+import ComentarioStyles from "../styles/Comentario.module.css"; // Importamos los estilos
+
+/**
+ * Footer component that renders the footer section of the website.
+ * 
+ * @returns {JSX.Element} The rendered footer component.
+ * 
+ * The footer includes:
+ * - A menu with links to various pages such as Contacto, Privacidad, Política de Empresa, Términos y Condiciones, Carrera, and Menu de Sitio.
+ * - A comment section where users can contact the company by filling out a form with their name, email, and comment.
+ * - A copyright notice.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <Footer />
+ * )
+ */
 
 export default function Footer() {
     return (
@@ -20,35 +37,40 @@ export default function Footer() {
 
             {/* Caja de comentarios */}
 
-            <div className="seccioncomentario">
-
+            <div className={ComentarioStyles.seccioncomentario}>
                 <h2 className={ComentarioStyles.titulocomentario}>Contáctenos</h2>
-                <br/>
+                <br />
                 <p className={ComentarioStyles.textocomentario}>¿Tiene alguna pregunta o comentario? Por favor, no dude en contactarnos.</p>
-                <form className={ComentarioStyles.nombrecomentario}>
-                    <h3 className={ComentarioStyles.entcomentario}>Nombre*</h3>
-                    <div>
-                        <textarea rows={1}></textarea>
-                    </div>
-                </form>
-                <br/>
-                <form className={ComentarioStyles.nombrecomentario}>
-                    <h3 className={ComentarioStyles.entcomentario}>Correo electrónico*</h3>
-                    <div>
-                        <textarea rows={1}></textarea>
-                    </div>
-                </form>
-                <br/>
-                <form className={ComentarioStyles.cajacomentario}>
-                    <h3 className={ComentarioStyles.entcomentario}>Ingrese un comentario*</h3>
-                    <div>
-                    <textarea rows={5}></textarea>
-                    </div>
-                    <br />
-                    <button type="submit">Enviar comentario</button>
-                </form>
+                
+                <form className={ComentarioStyles.formcomentario}>
+                    {/* Sección izquierda */}
+                    <div className={ComentarioStyles.columnaIzquierda}>
+                        <div className={ComentarioStyles.nombrecomentario}>
+                            <h3 className={ComentarioStyles.entcomentario}>Nombre*</h3>
+                            <textarea rows={1}></textarea>
+                        </div>
 
+                        <div className={ComentarioStyles.nombrecomentario}>
+                            <h3 className={ComentarioStyles.entcomentario}>Correo electrónico*</h3>
+                            <textarea rows={1}></textarea>
+                        </div>
+                    </div>
+
+                    {/* Sección derecha */}
+                    <div className={ComentarioStyles.columnaDerecha}>
+                        <div className={ComentarioStyles.cajacomentario}>
+                            <h3 className={ComentarioStyles.entcomentario}>Ingrese un comentario*</h3>
+                            <textarea rows={5}></textarea>
+                        </div>
+                        <br />
+                        <button type="submit" className={ComentarioStyles.botonComentario}>
+                            Enviar comentario
+                        </button>
+                    </div>
+                </form>
             </div>
+
+
 
             {/* Fin caja de comentarios */}
             
