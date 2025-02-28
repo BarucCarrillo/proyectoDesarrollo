@@ -5,6 +5,10 @@ import { useState } from "react";
 // Importamos los estilos desde el archivo CSS
 import styles from "../styles/Header.module.css";
 
+import Link from "next/link";
+
+
+
 // Definimos el componente funcional Header
 /**
  * Header component that renders the main navigation header of the application.
@@ -59,7 +63,9 @@ export default function Header() {
                         </form>
                     </li>
                     <li>
-                        <a href="#">Inicio</a>
+                        <Link href={"/"}>
+                            Inicio
+                        </Link>
                     </li>
                     <li>
                         <a href="#">Ofertas</a>
@@ -84,14 +90,14 @@ export default function Header() {
                         </ul>
                     </li>
                     <li> 
-                        <button onClick={() => window.location.href='/views/Formulario.html'} className={styles.button}>
+                        <button onClick={() => window.location.href='src/sign-in/page.tsx'} className={styles.button}>
                             Registro
                         </button>
                     </li> 
                     <li> 
-                        <button onClick={() => window.location.href='/views/Formulario.html'} className={styles.button}>
+                        <Link href={"/"} className={styles.button}>
                             Iniciar Sesión
-                        </button>
+                        </Link>
                     </li> 
                 </ul>
             </nav>

@@ -12,7 +12,7 @@
 .banner h1 {
   color: #000000;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 4em;
+  font-size: 3.8em;
 }
 
 .banner h2 {
@@ -40,31 +40,33 @@
 }
 
 .productosEstrella {
-    margin-top: 0;
-    text-align: left;
-    margin: 0 10% 0 10%;
+  margin-top: 0;
+  text-align: left;
+  margin: 0 10% 0 10%;
 }
 
 .productosEstrella h2{
-    color: #000000;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 3em;
+  color: #000000;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 3em;
 }
 
 .productosEstrella h3{
-    color: #333;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 2em;
-    margin-top: 2%;
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2em;
+  margin-top: 2%;
 }
 
 .perfumesContainer {
-    display: flex;
-    justify-content: space-between;
-    gap: 0;
-    margin-top: 5%;
-    margin-bottom: 10%;
-    text-align: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  margin-top: 5%;
+  margin-bottom: 10%;
+  text-align: center;
+  flex-wrap: nowrap; /* Ensure images are in a single line */
+  overflow-x: auto; /* Add horizontal scroll if needed */
 }
 
 .perfumesContainer img {
@@ -83,6 +85,7 @@
   text-align: left;
   margin: 0 10% 10% 10%;
 }
+
 .productosNuevos h2{
   color: #000000;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -94,4 +97,32 @@
   font-family: 'Courier New', Courier, monospace;
   font-size: 2em;
   margin-top: 2%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    padding: 3em;
+  }
+
+  .productosEstrella h3{
+    font-size: 1rem;
+  }
+
+  .productosNuevos h3{
+    font-size: 1rem;
+  }
+
+  .columnaIzquierda, .columnaDerecha {
+    width: 100%;
+  }
+
+  .perfumesContainer img {
+    width: 50%;
+  }
+
+  .productosEstrella, .productosNuevos {
+    margin: 0 5%;
+  }
 }
