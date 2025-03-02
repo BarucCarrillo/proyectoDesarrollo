@@ -104,17 +104,18 @@
 }
 
 .button {
-    padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f8f8f8;
     font-size: 1rem;
     cursor: pointer;
-    padding: 8px;
+    text-align: center;
+    justify-content: center;
+    width: 180px;
 }
 
 .button:hover {
-    background-color: #000000;
+    background-color: #006400;
     color: #f8f8f8;
 }
 

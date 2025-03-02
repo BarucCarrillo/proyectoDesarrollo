@@ -90,12 +90,12 @@ export default function Header() {
                         </ul>
                     </li>
                     <li> 
-                        <button onClick={() => window.location.href='src/sign-in/page.tsx'} className={styles.button}>
+                        <Link href={"/signup"} className={styles.button}>
                             Registro
-                        </button>
+                        </Link>
                     </li> 
                     <li> 
-                        <Link href={"/"} className={styles.button}>
+                        <Link href={"/login"} className={styles.button}>
                             Iniciar Sesión
                         </Link>
                     </li> 
