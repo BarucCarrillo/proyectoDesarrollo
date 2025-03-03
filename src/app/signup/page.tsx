@@ -2,13 +2,16 @@
 
 import axios, {AxiosError} from 'axios';
 import React, { useState, FormEvent } from 'react';
-import Header from '../../../components/header';
-import Footer from '../../../components/footer';
-import styles from '../../../styles/Signup.module.css';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from "@/styles/Signup.module.css"
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 function SignupPage() {
 
     const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,7 +19,7 @@ function SignupPage() {
         const formData = new FormData(e.currentTarget);
 
         try {
-                const res = await axios.post("/api/auth/signup", {
+                const signupResponse = await axios.post("/api/auth/signup", {
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
                 email: formData.get('email'),
@@ -32,6 +35,23 @@ function SignupPage() {
                     codigoPostal: formData.get('codigoPostal'),
                 },
             });
+
+            console.log(signupResponse)
+
+            const email = formData.get('email') as string;
+            const password = formData.get('password') as string;
+
+            const res = await signIn("credentials",{
+                email,
+                password,
+                redirect: false,
+            });
+
+            if(res?.ok) return router.push("/account");
+
+            
+            console.log("Login Response:", res); // <-- Agregar esto para ver la respuesta
+
         } catch (error) {
             if(error instanceof AxiosError){
                 setError(error.response?.data.message || error.message);

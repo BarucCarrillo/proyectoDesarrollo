@@ -1,48 +1,62 @@
 'use client';
 
-import React, { useState } from 'react';
-import Header from '../../../components/header';
-import Footer from '../../../components/footer';
-import styles from '../../../styles/Login.module.css';
+import React, { useState, FormEvent } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from "@/styles/Signup.module.css"
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-const LoginPage: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+function LoginPage() {
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        // Aquí puedes manejar la lógica de autenticación
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        const password = formData.get('password') as string;
+        const email = formData.get('email') as string;
+
+        const res = await signIn("credentials",{
+            email,
+            password,
+            redirect: false,
+        });
+
+        if (res?.error) setError(res.error as string);
+
+        if(res?.ok) return router.push("/account");
+    }
 
     return (
         <div>
             <Header />
+            {error && <div className={styles.error}>{error}</div>}
+            <h1>Iniciar Sesión</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
-                <h1>Iniciar Sesión</h1>
-                <label className={styles.label}>
-                    Email:
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Correo:</label>
                     <input
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
                         required
                         className={styles.input}
                     />
-                </label>
-                <label className={styles.label}>
-                    Password:
+                </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Contraseña:</label>
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
                         required
                         className={styles.input}
                     />
-                </label>
-                <button type="submit" className={styles.button}>
-                    Login
+                </div>
+                <button type="submit" className={styles.submitButton}>
+                    Iniciar Sesión
                 </button>
             </form>
             <Footer />

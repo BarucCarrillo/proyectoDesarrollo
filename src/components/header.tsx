@@ -90,6 +90,11 @@ export default function Header() {
                         </ul>
                     </li>
                     <li> 
+                        <Link href={"/signup"}>
+                            Perfil
+                        </Link>
+                    </li> 
+                    <li> 
                         <Link href={"/signup"} className={styles.button}>
                             Registro
                         </Link>
