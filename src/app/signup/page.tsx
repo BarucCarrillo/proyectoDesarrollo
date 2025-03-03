@@ -90,6 +90,7 @@ function SignupPage() {
                         name="email"
                         required
                         className={styles.input}
+                        id='email'
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -99,6 +100,16 @@ function SignupPage() {
                         name="confirmEmail"
                         required
                         className={styles.input}
+                        id='confirmEmail'
+                        onInput={(e) =>{
+                            const email = (document.getElementById('email') as HTMLInputElement).value;
+                            const confirmEmail = (e.target as HTMLInputElement).value;
+                            if(email !== confirmEmail){
+                                (e.target as HTMLInputElement).setCustomValidity('Los correos no coinciden');
+                            } else {
+                                (e.target as HTMLInputElement).setCustomValidity('');
+                            }
+                        }}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -108,6 +119,7 @@ function SignupPage() {
                         name="password"
                         required
                         className={styles.input}
+                        id="password"
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -117,6 +129,16 @@ function SignupPage() {
                         name="confirmPassword"
                         required
                         className={styles.input}
+                        id="confirmPassword"
+                        onInput={(e) => {
+                            const password = (document.getElementById('password') as HTMLInputElement).value;
+                            const confirmPassword = (e.target as HTMLInputElement).value;
+                            if (password !== confirmPassword) {
+                                (e.target as HTMLInputElement).setCustomValidity('Las contraseñas no coinciden');
+                            } else {
+                                (e.target as HTMLInputElement).setCustomValidity('');
+                            }
+                        }}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -128,22 +150,26 @@ function SignupPage() {
                         className={styles.input}
                     />
                 </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Número Exterior:</label>
-                    <input
-                        type="text"
-                        name="numeroExterior"
-                        required
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Número Interior:</label>
-                    <input
-                        type="text"
-                        name="numeroInterior"
-                        className={styles.input}
-                    />
+                <div className={styles.horizontalGroup}>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>Número Exterior:</label>
+                        <input
+                            type="number"
+                            name="numeroExterior"
+                            required
+                            className={styles.input}
+                            pattern="\d*"
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>Número Interior:</label>
+                        <input
+                            type="number"
+                            name="numeroInterior"
+                            className={styles.inputNI}
+                            pattern="\d*"
+                        />
+                    </div>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Colonia:</label>
@@ -154,32 +180,63 @@ function SignupPage() {
                         className={styles.input}
                     />
                 </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Ciudad:</label>
-                    <input
-                        type="text"
-                        name="municipio"
-                        required
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Estado:</label>
-                    <input
-                        type="text"
-                        name="estado"
-                        required
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Código Postal:</label>
-                    <input
-                        type="text"
-                        name="codigoPostal"
-                        required
-                        className={styles.input}
-                    />
+                <div className={styles.horizontalGroup}>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>Ciudad:</label>
+                        <input
+                            type="text"
+                            name="municipio"
+                            required
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles.select}>
+                        <label className={styles.labelS}>Estado:</label>
+                        <select name="estado" required className={styles.selectO}>
+                            <option value="">Seleccione un estado</option>
+                            <option value="Aguascalientes">Aguascalientes</option>
+                            <option value="Baja California">Baja California</option>
+                            <option value="Baja California Sur">Baja California Sur</option>
+                            <option value="Campeche">Campeche</option>
+                            <option value="Chiapas">Chiapas</option>
+                            <option value="Chihuahua">Chihuahua</option>
+                            <option value="Ciudad de México">Ciudad de México</option>
+                            <option value="Coahuila">Coahuila</option>
+                            <option value="Colima">Colima</option>
+                            <option value="Durango">Durango</option>
+                            <option value="Estado de México">Estado de México</option>
+                            <option value="Guanajuato">Guanajuato</option>
+                            <option value="Guerrero">Guerrero</option>
+                            <option value="Hidalgo">Hidalgo</option>
+                            <option value="Jalisco">Jalisco</option>
+                            <option value="Michoacán">Michoacán</option>
+                            <option value="Morelos">Morelos</option>
+                            <option value="Nayarit">Nayarit</option>
+                            <option value="Nuevo León">Nuevo León</option>
+                            <option value="Oaxaca">Oaxaca</option>
+                            <option value="Puebla">Puebla</option>
+                            <option value="Querétaro">Querétaro</option>
+                            <option value="Quintana Roo">Quintana Roo</option>
+                            <option value="San Luis Potosí">San Luis Potosí</option>
+                            <option value="Sinaloa">Sinaloa</option>
+                            <option value="Sonora">Sonora</option>
+                            <option value="Tabasco">Tabasco</option>
+                            <option value="Tamaulipas">Tamaulipas</option>
+                            <option value="Tlaxcala">Tlaxcala</option>
+                            <option value="Veracruz">Veracruz</option>
+                            <option value="Yucatán">Yucatán</option>
+                            <option value="Zacatecas">Zacatecas</option>
+                        </select>
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.labelC}>Código Postal:</label>
+                        <input
+                            type="text"
+                            name="codigoPostal"
+                            required
+                            className={styles.inputC}
+                        />
+                    </div>
                 </div>
                 <button type="submit" className={styles.submitButton}>
                     Registrar

@@ -63,3 +63,49 @@
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 }
+
+.horizontalGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+.horizontalGroup .input,
+.horizontalGroup .inputC {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.horizontalGroup .labelC {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+}
+
+
+.select {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin-bottom: 4%;
+}
+
+@media (min-width: 768px) {
+    .horizontalGroup {
+        flex-direction: row;
+    }
+
+    .horizontalGroup .input,
+    .horizontalGroup .inputC {
+        width: 90%;
+    }
+
+    .horizontalGroup .inputC {
+        margin-left: 12%;
+    }
+
+    .horizontalGroup .labelC {
+        margin-left: 15%;
+    }
+}
