@@ -90,7 +90,7 @@ export default function Header() {
                         </ul>
                     </li>
                     <li> 
-                        <Link href={"/signup"}>
+                        <Link href={"/account"}>
                             Perfil
                         </Link>
                     </li> 

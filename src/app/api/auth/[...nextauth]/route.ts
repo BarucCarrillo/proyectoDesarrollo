@@ -28,27 +28,22 @@ const handler = NextAuth({
                     throw new Error('Credenciales inválidas');
                 }
 
-                return {
-                    id: userFound._id.toString(),
-                    email: userFound.email,
-                };
+                console.log('User found', userFound);
+
+                return userFound;
+
             },
         }),
     ],
     callbacks: {
-        async jwt({ token, user}) {
+        async jwt({ account, token, user, profile, session}) {
             if (user) {
-                token.user = {
-                    id: user.id,
-                    email: user.email,
-                };
+                token.user = user;
             }
             return token;
         },
         async session({ session, token }) {
-            if (token.user) {
-                session.user = token.user;
-            }
+            session.user = token.user as any;
             return session;
         },
     },
