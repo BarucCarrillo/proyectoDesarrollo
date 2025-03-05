@@ -57,6 +57,9 @@ function LoginPage() {
                 <button type="submit" className={styles.submitButton}>
                     Iniciar Sesión
                 </button>
+                <p className={styles.redirect}>
+                    ¿No tienes cuenta? <a href="/signup">Regístrate</a>
+                </p>
             </form>
         </div>
     );

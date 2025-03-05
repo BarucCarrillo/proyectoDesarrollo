@@ -12,13 +12,18 @@ function UserDashboard() {
 
     const handleDelete = async () => {
         if (window.confirm('¿Estás seguro de que deseas eliminar tu cuenta?')) {
-            const params = { id: session?.user?._id }; // Use the actual user id from the session
+            const params = { id: session?.user?._id }; // ID del usuario desde la sesión
             const res = await fetch(`/api/tasks/${params.id}`, {
                 method: 'DELETE',
             });
-            router.push('/');
-            
-            console.log('Eliminando cuenta');
+    
+            if (res.ok) {
+                console.log('Cuenta eliminada, cerrando sesión...');
+                await signOut();  // Cierra sesión para invalidar la sesión en cookies
+                router.push('/');
+            } else {
+                console.error('Error al eliminar la cuenta');
+            }
         }
     }
 
@@ -82,7 +87,7 @@ function UserDashboard() {
                             </button>
             </div>
             <div className={styles.buttonContainer} onClick={handleDelete}>
-                <button type='submit'>
+                <button className={styles.deleteBtn} type='submit'>
                     Eliminar Cuenta
                 </button>
             </div>

@@ -84,6 +84,16 @@
     margin-bottom: 0.5rem;
 }
 
+.redirect{
+    font-size: 1.2rem;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
 
 .select {
     font-family: 'Courier New', Courier, monospace;

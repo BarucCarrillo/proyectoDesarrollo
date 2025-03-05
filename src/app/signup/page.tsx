@@ -240,6 +240,7 @@ function SignupPage() {
                 <button type="submit" className={styles.submitButton}>
                     Registrar
                 </button>
+                <p className={styles.redirect}>¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a></p>
             </form>
         </div>
     );
