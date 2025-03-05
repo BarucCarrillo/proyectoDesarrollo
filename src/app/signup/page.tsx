@@ -61,7 +61,6 @@ function SignupPage() {
 
     return (
         <div>
-            <Header />
             {error && <div className={styles.error}>{error}</div>}
             <h1>Registro</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -242,7 +241,6 @@ function SignupPage() {
                     Registrar
                 </button>
             </form>
-            <Footer />
         </div>
     );
 };

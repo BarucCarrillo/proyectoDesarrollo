@@ -38,11 +38,6 @@
     margin-left: 2%;
 }
 
-.button:hover {
-    background-color: #ffffff;
-}
-
-
 .buttonContainer{
     display: flex;
     justify-content: center;

@@ -33,7 +33,6 @@ function LoginPage() {
 
     return (
         <div>
-            <Header />
             {error && <div className={styles.error}>{error}</div>}
             <h1>Iniciar Sesión</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -59,7 +58,6 @@ function LoginPage() {
                     Iniciar Sesión
                 </button>
             </form>
-            <Footer />
         </div>
     );
 };

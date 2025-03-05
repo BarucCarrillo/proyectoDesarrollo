@@ -19,7 +19,6 @@ import banner from "../../public/bannerImg.png";
 export default function Home() {
   return (
     <div>
-      <Header />
         <section className={styles.banner}>
           <div className={styles.columnaIzquierda}>
             <h1>Descubre Tu Escencia Firma</h1>
@@ -67,7 +66,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      <Footer />
     </div>
   );
 }

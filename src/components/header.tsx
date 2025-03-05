@@ -1,10 +1,7 @@
-"use client";
 
-// Importamos el hook useState de React
-import { useState } from "react";
 // Importamos los estilos desde el archivo CSS
 import styles from "../styles/Header.module.css";
-
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 
@@ -41,9 +38,10 @@ import Link from "next/link";
  *       <Header />
  * */
 
-export default function Header() {
-    // Declaramos el estado menuOpen y su función para actualizarlo
-    const [menuOpen, setMenuOpen] = useState(false);
+export default async function Header() {
+
+    const session = await getServerSession();
+    console.log(session);
 
     return (
         <header>
@@ -51,11 +49,54 @@ export default function Header() {
             <h1 className={styles.h1}>AROMAS</h1>
             <nav className={styles.navContainer}>
                 {/* Botón para abrir/cerrar el menú */}
-                <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
+                <button className={styles.hamburger}>
                     ☰
                 </button>
                 {/* Lista de navegación con clases dinámicas según el estado menuOpen */}
-                <ul className={`${styles.menu} ${menuOpen ? styles.active : ""}`}>
+                <ul className={styles.menu}>
+                    {session ? (
+                        <>
+                            <li>
+                                <form action="/views/construccion.html" className={styles.search}>
+                                    <input type="text" placeholder="Buscar..." name="search" />
+                                    <button type="submit">Buscar</button>
+                                </form>
+                            </li>
+                            <li>
+                                <Link href={"/"}>
+                                    Inicio
+                                </Link>
+                            </li>
+                            <li>
+                                <a href="#">Ofertas</a>
+                                <ul className={styles.submenu}>
+                                    <li><a href="#">Opción 1</a></li>
+                                    <li><a href="#">Opción 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Novedades</a>
+                                <ul className={styles.submenu}>
+                                    <li><a href="#">Opción 1</a></li>
+                                    <li><a href="#">Opción 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/views/damas.html">Generos</a>
+                                <ul className={styles.submenu}>
+                                    <li><a href="#">Opción 1</a></li>
+                                    <li><a href="#">Opción 2</a></li>
+                                    <li><a href="#">Opción 2</a></li>
+                                </ul>
+                            </li> 
+                            <li> 
+                                <Link href={"/account"}>
+                                    Perfil
+                                </Link>
+                            </li>
+                        </>
+                    ) : (
+                        <>
                     <li>
                         <form action="/views/construccion.html" className={styles.search}>
                             <input type="text" placeholder="Buscar..." name="search" />
@@ -88,11 +129,6 @@ export default function Header() {
                             <li><a href="#">Opción 2</a></li>
                             <li><a href="#">Opción 2</a></li>
                         </ul>
-                    </li>
-                    <li> 
-                        <Link href={"/account"}>
-                            Perfil
-                        </Link>
                     </li> 
                     <li> 
                         <Link href={"/signup"} className={styles.button}>
@@ -104,6 +140,8 @@ export default function Header() {
                             Iniciar Sesión
                         </Link>
                     </li> 
+                        </>
+                    )}
                 </ul>
             </nav>
         </header>

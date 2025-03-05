@@ -1,21 +1,37 @@
 "use client"
 import React from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import styles from '@/styles/Account.module.css';
-import Header from '../../components/header';
-import Footer from '../../components/footer';
+import { useRouter } from 'next/navigation';
 
 function UserDashboard() {
 
     const { data: session, status } = useSession();
+    const router = useRouter();
     console.log(session, status);
+
+    const handleDelete = async () => {
+        if (window.confirm('¿Estás seguro de que deseas eliminar tu cuenta?')) {
+            const params = { id: session?.user?._id }; // Use the actual user id from the session
+            const res = await fetch(`/api/tasks/${params.id}`, {
+                method: 'DELETE',
+            });
+            router.push('/');
+            
+            console.log('Eliminando cuenta');
+        }
+    }
+
     return (
         <div>
-            <Header/>
             <h1>Tu Cuenta</h1>
             {session && session.user ? (
                 <table className={styles.table}>
                     <tbody>
+                        <tr>
+                            <td className={styles.tittle}>ID</td>
+                            <td className={styles.info}>{session.user._id}</td>
+                        </tr>
                         <tr>
                             <td className={styles.tittle}>Nombres</td>
                             <td className={styles.info}>{session.user.firstName}</td>
@@ -59,13 +75,17 @@ function UserDashboard() {
             )}
             <div className={styles.buttonContainer}>
                             <button className={styles.button}>
-                                <a href="/account/edit">Editar Datos</a>
+                                Editar Datos
                             </button>
-                            <button className={styles.button}>
-                                <a href="/api/auth/signout">Cerrar Sesión</a>
+                            <button className={styles.button} onClick={() => signOut()}>
+                                Cerrar Sesión
                             </button>
             </div>
-            <Footer/>
+            <div className={styles.buttonContainer} onClick={handleDelete}>
+                <button type='submit'>
+                    Eliminar Cuenta
+                </button>
+            </div>
         </div>
     );
 };
