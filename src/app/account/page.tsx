@@ -3,6 +3,8 @@ import React from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import styles from '@/styles/Account.module.css';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import Task from '@/models/Task';
 
 function UserDashboard() {
 
@@ -79,9 +81,11 @@ function UserDashboard() {
                 <p>No hay datos de usuario disponibles.</p>
             )}
             <div className={styles.buttonContainer}>
-                            <button className={styles.button}>
-                                Editar Datos
-                            </button>
+                            <Link href={`/tasks/${session?.user?._id}`} passHref>
+                                <button className={styles.button}>
+                                    Editar Datos
+                                </button>
+                            </Link>
                             <button className={styles.button} onClick={() => signOut()}>
                                 Cerrar Sesión
                             </button>

@@ -1,20 +1,51 @@
 'use client';
 
 import axios, {AxiosError} from 'axios';
-import React, { useState, FormEvent } from 'react';
-import Header from '../../components/header';
-import Footer from '../../components/footer';
+import React, { useState, FormEvent, useEffect } from 'react';
 import styles from "@/styles/Signup.module.css"
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
+import { set } from 'mongoose';
 
 function SignupPage() {
 
     const [error, setError] = useState<string | null>(null);
+    const [task, setTask] = useState<any>(null);
     const router = useRouter();
+    const params = useParams();
+
+    const getTask = async () => {
+       const res = await fetch(`/api/tasks/${params.id}`);
+       const data = await res.json();
+       console.log(data);
+       setTask({
+              firstName: data.firstName,
+              lastName: data.lastName,
+              email: data.email,
+              confirmEmail: data.confirmEmail,
+              password: data.password,
+              domicilio: {
+                calle: data.domicilio.calle,
+                numeroExterior: data.domicilio.numeroExterior,
+                numeroInterior: data.domicilio.numeroInterior,
+                colonia: data.domicilio.colonia,
+                municipio: data.domicilio.municipio,
+                estado: data.domicilio.estado,
+                codigoPostal: data.domicilio.codigoPostal,
+              },
+       });
+    }
+
+    const updateTask = () => {};
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if(!params.id){
+            
+        }else{
+            console.log("Editando cuenta");
+        }
 
         const formData = new FormData(e.currentTarget);
 
@@ -57,12 +88,25 @@ function SignupPage() {
                 setError(error.response?.data.message || error.message);
             } 
         }
-    }
+    };
+
+    const handleChange = (
+        e: FormEvent<HTMLInputElement>
+    ) => {setNewTask({...newTask, [e.currentTarget.name]: e.currentTarget.value})};
+
+    useEffect(() => {
+        if(params.id){
+            getTask();
+        }
+    },
+    []);
 
     return (
         <div>
             {error && <div className={styles.error}>{error}</div>}
-            <h1>Registro</h1>
+            <h1>
+                {!params.id ? "Registro" : "Editar Cuenta"}
+            </h1>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Nombre:</label>
@@ -71,6 +115,8 @@ function SignupPage() {
                         name="firstName"
                         required
                         className={styles.input}
+                        value={task?.firstName || ''}
+                        onChange={(e) => setTask({...task, firstName: e.target.value})}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -80,6 +126,8 @@ function SignupPage() {
                         name="lastName"
                         required
                         className={styles.input}
+                        value={task?.lastName || ''}
+                        onChange={(e) => setTask({...task, lastName: e.target.value})}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -90,27 +138,31 @@ function SignupPage() {
                         required
                         className={styles.input}
                         id='email'
+                        value={task?.email || ''}
+                        onChange={(e) => setTask({...task, email: e.target.value})}
                     />
                 </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Confirmación de Correo:</label>
-                    <input
-                        type="email"
-                        name="confirmEmail"
-                        required
-                        className={styles.input}
-                        id='confirmEmail'
-                        onInput={(e) =>{
-                            const email = (document.getElementById('email') as HTMLInputElement).value;
-                            const confirmEmail = (e.target as HTMLInputElement).value;
-                            if(email !== confirmEmail){
-                                (e.target as HTMLInputElement).setCustomValidity('Los correos no coinciden');
-                            } else {
-                                (e.target as HTMLInputElement).setCustomValidity('');
-                            }
-                        }}
-                    />
-                </div>
+                {!params.id && (
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>Confirmación de Correo:</label>
+                        <input
+                            type="email"
+                            name="confirmEmail"
+                            required
+                            className={styles.input}
+                            id='confirmEmail'
+                            onInput={(e) =>{
+                                const email = (document.getElementById('email') as HTMLInputElement).value;
+                                const confirmEmail = (e.target as HTMLInputElement).value;
+                                if(email !== confirmEmail){
+                                    (e.target as HTMLInputElement).setCustomValidity('Los correos no coinciden');
+                                } else {
+                                    (e.target as HTMLInputElement).setCustomValidity('');
+                                }
+                            }}
+                        />
+                    </div>
+                )}
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Contraseña:</label>
                     <input
@@ -119,8 +171,11 @@ function SignupPage() {
                         required
                         className={styles.input}
                         id="password"
+                        value={task?.password || ''}
+                        onChange={(e) => setTask({...task, password: e.target.value})}
                     />
                 </div>
+                {!params.id && (
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Confirmación de Contraseña:</label>
                     <input
@@ -140,6 +195,7 @@ function SignupPage() {
                         }}
                     />
                 </div>
+                )}
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Calle:</label>
                     <input
@@ -147,6 +203,8 @@ function SignupPage() {
                         name="calle"
                         required
                         className={styles.input}
+                        value={task?.domicilio?.calle || ''}
+                        onChange={(e) => setTask({...task, domicilio: {...task.domicilio, calle: e.target.value}})}
                     />
                 </div>
                 <div className={styles.horizontalGroup}>
@@ -158,6 +216,8 @@ function SignupPage() {
                             required
                             className={styles.input}
                             pattern="\d*"
+                            value={task?.domicilio?.numeroExterior || ''}
+                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, numeroExterior: e.target.value}})}
                         />
                     </div>
                     <div className={styles.formGroup}>
@@ -167,6 +227,8 @@ function SignupPage() {
                             name="numeroInterior"
                             className={styles.inputNI}
                             pattern="\d*"
+                            value={task?.domicilio?.numeroInterior || ''}
+                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, numeroInterior: e.target.value}})}
                         />
                     </div>
                 </div>
@@ -177,6 +239,8 @@ function SignupPage() {
                         name="colonia"
                         required
                         className={styles.input}
+                        value={task?.domicilio?.colonia || ''}
+                        onChange={(e) => setTask({...task, domicilio: {...task.domicilio, colonia: e.target.value}})}
                     />
                 </div>
                 <div className={styles.horizontalGroup}>
@@ -187,11 +251,13 @@ function SignupPage() {
                             name="municipio"
                             required
                             className={styles.input}
+                            value={task?.domicilio?.municipio || ''}
+                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, municipio: e.target.value}})}
                         />
                     </div>
                     <div className={styles.select}>
                         <label className={styles.labelS}>Estado:</label>
-                        <select name="estado" required className={styles.selectO}>
+                        <select name="estado" required className={styles.selectO} value={task?.domicilio?.estado || ''} onChange={(e) => setTask({...task, domicilio: {...task.domicilio, estado: e.target.value}})}>
                             <option value="">Seleccione un estado</option>
                             <option value="Aguascalientes">Aguascalientes</option>
                             <option value="Baja California">Baja California</option>
@@ -234,14 +300,22 @@ function SignupPage() {
                             name="codigoPostal"
                             required
                             className={styles.inputC}
+                            value={task?.domicilio?.codigoPostal || ''}
+                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, codigoPostal: e.target.value}})}
                         />
                     </div>
                 </div>
                 <button type="submit" className={styles.submitButton}>
-                    Registrar
+                    {!params.id ? "Registrarse" : "Guardar Cambios"}
                 </button>
-                <p className={styles.redirect}>¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a></p>
-            </form>
+                <p className={styles.redirect}>
+                    {!params.id ? (
+                        <>¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a></>
+                    ) : (
+                        <>¿Deseas cancelar? <a href="/account">Volver</a></>
+                    )}
+                </p>
+                </form>
         </div>
     );
 };
