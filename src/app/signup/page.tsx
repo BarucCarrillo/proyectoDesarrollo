@@ -1,30 +1,28 @@
 'use client';
 
-import axios, {AxiosError} from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { useState, FormEvent, useEffect } from 'react';
-import styles from "@/styles/Signup.module.css"
+import styles from "@/styles/Signup.module.css";
 import { signIn } from 'next-auth/react';
 import { useRouter, useParams } from 'next/navigation';
-import { set } from 'mongoose';
 
 function SignupPage() {
-
     const [error, setError] = useState<string | null>(null);
     const [task, setTask] = useState<any>(null);
     const router = useRouter();
     const params = useParams();
 
     const getTask = async () => {
-       const res = await fetch(`/api/tasks/${params.id}`);
-       const data = await res.json();
-       console.log(data);
-       setTask({
-              firstName: data.firstName,
-              lastName: data.lastName,
-              email: data.email,
-              confirmEmail: data.confirmEmail,
-              password: data.password,
-              domicilio: {
+        const res = await fetch(`/api/tasks/${params.id}`);
+        const data = await res.json();
+        console.log(data);
+        setTask({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            confirmEmail: data.confirmEmail,
+            password: data.password,
+            domicilio: {
                 calle: data.domicilio.calle,
                 numeroExterior: data.domicilio.numeroExterior,
                 numeroInterior: data.domicilio.numeroInterior,
@@ -32,25 +30,13 @@ function SignupPage() {
                 municipio: data.domicilio.municipio,
                 estado: data.domicilio.estado,
                 codigoPostal: data.domicilio.codigoPostal,
-              },
-       });
-    }
+            },
+        });
+    };
 
-    const updateTask = () => {};
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if(!params.id){
-            
-        }else{
-            console.log("Editando cuenta");
-        }
-
-        const formData = new FormData(e.currentTarget);
-
+    const updateTask = async (formData: FormData) => {
         try {
-                const signupResponse = await axios.post("/api/auth/signup", {
+            const updateResponse = await axios.put(`/api/tasks/${params.id}`, {
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
                 email: formData.get('email'),
@@ -67,39 +53,69 @@ function SignupPage() {
                 },
             });
 
-            console.log(signupResponse)
-
-            const email = formData.get('email') as string;
-            const password = formData.get('password') as string;
-
-            const res = await signIn("credentials",{
-                email,
-                password,
-                redirect: false,
-            });
-
-            if(res?.ok) return router.push("/account");
-
-            
-            console.log("Login Response:", res); // <-- Agregar esto para ver la respuesta
-
+            console.log(updateResponse);
+            router.push("/account");
         } catch (error) {
-            if(error instanceof AxiosError){
+            if (error instanceof AxiosError) {
                 setError(error.response?.data.message || error.message);
-            } 
+            }
         }
     };
 
-    const handleChange = (
-        e: FormEvent<HTMLInputElement>
-    ) => {setNewTask({...newTask, [e.currentTarget.name]: e.currentTarget.value})};
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        if (!params.id) {
+            try {
+                const signupResponse = await axios.post("/api/auth/signup", {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    confirmEmail: formData.get('confirmEmail'),
+                    password: formData.get('password'),
+                    domicilio: {
+                        calle: formData.get('calle'),
+                        numeroExterior: formData.get('numeroExterior'),
+                        numeroInterior: formData.get('numeroInterior'),
+                        colonia: formData.get('colonia'),
+                        municipio: formData.get('municipio'),
+                        estado: formData.get('estado'),
+                        codigoPostal: formData.get('codigoPostal'),
+                    },
+                });
+
+                console.log(signupResponse);
+
+                const email = formData.get('email') as string;
+                const password = formData.get('password') as string;
+
+                const res = await signIn("credentials", {
+                    email,
+                    password,
+                    redirect: false,
+                });
+
+                if (res?.ok) return router.push("/account");
+
+                console.log("Login Response:", res);
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    setError(error.response?.data.message || error.message);
+                }
+            }
+        } else {
+            console.log("Editando cuenta");
+            await updateTask(formData);
+        }
+    };
 
     useEffect(() => {
-        if(params.id){
+        if (params.id) {
             getTask();
         }
-    },
-    []);
+    }, []);
 
     return (
         <div>
@@ -116,7 +132,7 @@ function SignupPage() {
                         required
                         className={styles.input}
                         value={task?.firstName || ''}
-                        onChange={(e) => setTask({...task, firstName: e.target.value})}
+                        onChange={(e) => setTask({ ...task, firstName: e.target.value })}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -127,7 +143,7 @@ function SignupPage() {
                         required
                         className={styles.input}
                         value={task?.lastName || ''}
-                        onChange={(e) => setTask({...task, lastName: e.target.value})}
+                        onChange={(e) => setTask({ ...task, lastName: e.target.value })}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -139,7 +155,7 @@ function SignupPage() {
                         className={styles.input}
                         id='email'
                         value={task?.email || ''}
-                        onChange={(e) => setTask({...task, email: e.target.value})}
+                        onChange={(e) => setTask({ ...task, email: e.target.value })}
                     />
                 </div>
                 {!params.id && (
@@ -151,10 +167,10 @@ function SignupPage() {
                             required
                             className={styles.input}
                             id='confirmEmail'
-                            onInput={(e) =>{
+                            onInput={(e) => {
                                 const email = (document.getElementById('email') as HTMLInputElement).value;
                                 const confirmEmail = (e.target as HTMLInputElement).value;
-                                if(email !== confirmEmail){
+                                if (email !== confirmEmail) {
                                     (e.target as HTMLInputElement).setCustomValidity('Los correos no coinciden');
                                 } else {
                                     (e.target as HTMLInputElement).setCustomValidity('');
@@ -171,30 +187,29 @@ function SignupPage() {
                         required
                         className={styles.input}
                         id="password"
-                        value={task?.password || ''}
-                        onChange={(e) => setTask({...task, password: e.target.value})}
+                        onChange={(e) => setTask({ ...task, password: e.target.value })}
                     />
                 </div>
                 {!params.id && (
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Confirmación de Contraseña:</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        required
-                        className={styles.input}
-                        id="confirmPassword"
-                        onInput={(e) => {
-                            const password = (document.getElementById('password') as HTMLInputElement).value;
-                            const confirmPassword = (e.target as HTMLInputElement).value;
-                            if (password !== confirmPassword) {
-                                (e.target as HTMLInputElement).setCustomValidity('Las contraseñas no coinciden');
-                            } else {
-                                (e.target as HTMLInputElement).setCustomValidity('');
-                            }
-                        }}
-                    />
-                </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>Confirmación de Contraseña:</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            required
+                            className={styles.input}
+                            id="confirmPassword"
+                            onInput={(e) => {
+                                const password = (document.getElementById('password') as HTMLInputElement).value;
+                                const confirmPassword = (e.target as HTMLInputElement).value;
+                                if (password !== confirmPassword) {
+                                    (e.target as HTMLInputElement).setCustomValidity('Las contraseñas no coinciden');
+                                } else {
+                                    (e.target as HTMLInputElement).setCustomValidity('');
+                                }
+                            }}
+                        />
+                    </div>
                 )}
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Calle:</label>
@@ -204,7 +219,7 @@ function SignupPage() {
                         required
                         className={styles.input}
                         value={task?.domicilio?.calle || ''}
-                        onChange={(e) => setTask({...task, domicilio: {...task.domicilio, calle: e.target.value}})}
+                        onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, calle: e.target.value } })}
                     />
                 </div>
                 <div className={styles.horizontalGroup}>
@@ -217,7 +232,7 @@ function SignupPage() {
                             className={styles.input}
                             pattern="\d*"
                             value={task?.domicilio?.numeroExterior || ''}
-                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, numeroExterior: e.target.value}})}
+                            onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, numeroExterior: e.target.value } })}
                         />
                     </div>
                     <div className={styles.formGroup}>
@@ -228,7 +243,7 @@ function SignupPage() {
                             className={styles.inputNI}
                             pattern="\d*"
                             value={task?.domicilio?.numeroInterior || ''}
-                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, numeroInterior: e.target.value}})}
+                            onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, numeroInterior: e.target.value } })}
                         />
                     </div>
                 </div>
@@ -240,7 +255,7 @@ function SignupPage() {
                         required
                         className={styles.input}
                         value={task?.domicilio?.colonia || ''}
-                        onChange={(e) => setTask({...task, domicilio: {...task.domicilio, colonia: e.target.value}})}
+                        onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, colonia: e.target.value } })}
                     />
                 </div>
                 <div className={styles.horizontalGroup}>
@@ -252,12 +267,12 @@ function SignupPage() {
                             required
                             className={styles.input}
                             value={task?.domicilio?.municipio || ''}
-                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, municipio: e.target.value}})}
+                            onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, municipio: e.target.value } })}
                         />
                     </div>
                     <div className={styles.select}>
                         <label className={styles.labelS}>Estado:</label>
-                        <select name="estado" required className={styles.selectO} value={task?.domicilio?.estado || ''} onChange={(e) => setTask({...task, domicilio: {...task.domicilio, estado: e.target.value}})}>
+                        <select name="estado" required className={styles.selectO} value={task?.domicilio?.estado || ''} onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, estado: e.target.value } })}>
                             <option value="">Seleccione un estado</option>
                             <option value="Aguascalientes">Aguascalientes</option>
                             <option value="Baja California">Baja California</option>
@@ -301,7 +316,7 @@ function SignupPage() {
                             required
                             className={styles.inputC}
                             value={task?.domicilio?.codigoPostal || ''}
-                            onChange={(e) => setTask({...task, domicilio: {...task.domicilio, codigoPostal: e.target.value}})}
+                            onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, codigoPostal: e.target.value } })}
                         />
                     </div>
                 </div>
@@ -315,7 +330,7 @@ function SignupPage() {
                         <>¿Deseas cancelar? <a href="/account">Volver</a></>
                     )}
                 </p>
-                </form>
+            </form>
         </div>
     );
 };

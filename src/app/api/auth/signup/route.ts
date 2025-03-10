@@ -8,15 +8,6 @@ export async function POST(request: Request){
     const { firstName, lastName, email, password, domicilio } = await request.json();
     console.log(email, password);
 
-    if (!password || password.length < 8) 
-        return NextResponse.json(
-        { 
-            message: 'La contraseña debe tener al menos 8 caracteres' 
-        }, 
-        { 
-            status: 400 
-        }
-    );
 
     try {     
         await connectDB();
@@ -34,7 +25,6 @@ export async function POST(request: Request){
 
         const hashPassword = await bcrypt.hash(password, 10);
 
-        // Asegúrate de que el objeto 'domicilio' tenga la estructura correcta
         const user = new Task({
             firstName,
             lastName,

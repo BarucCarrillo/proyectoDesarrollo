@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
-import Header from '../../components/header';
-import Footer from '../../components/footer';
 import styles from "@/styles/Signup.module.css"
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -28,7 +26,10 @@ function LoginPage() {
 
         if (res?.error) setError(res.error as string);
 
-        if(res?.ok) return router.push("/account");
+        
+        if(res?.ok){
+            window.location.href = "/account";
+        }
     }
 
     return (
