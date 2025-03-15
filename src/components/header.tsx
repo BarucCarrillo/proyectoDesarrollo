@@ -84,8 +84,8 @@ export default async function Header() {
                             <li>
                                 <a href="/views/damas.html">Generos</a>
                                 <ul className={styles.submenu}>
-                                    <li><a href="#">Opción 1</a></li>
-                                    <li><a href="#">Opción 2</a></li>
+                                    <li><Link href={'/ladies'}>Damas</Link></li>
+                                    <li><Link href={'/gentlemen'}>Caballeros</Link></li>
                                     <li><a href="#">Opción 2</a></li>
                                 </ul>
                             </li> 
@@ -125,8 +125,8 @@ export default async function Header() {
                     <li>
                         <a href="/views/damas.html">Generos</a>
                         <ul className={styles.submenu}>
-                            <li><a href="#">Opción 1</a></li>
-                            <li><a href="#">Opción 2</a></li>
+                            <li><Link href={'/ladies'}>Damas</Link></li>
+                            <li><Link href={'/gentlemen'}>Caballeros</Link></li>
                             <li><a href="#">Opción 2</a></li>
                         </ul>
                     </li> 

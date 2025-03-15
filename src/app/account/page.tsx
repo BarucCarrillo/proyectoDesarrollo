@@ -4,7 +4,6 @@ import { useSession, signOut } from 'next-auth/react';
 import styles from '@/styles/Account.module.css';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Task from '@/models/Task';
 
 function UserDashboard() {
 
