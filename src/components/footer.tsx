@@ -31,7 +31,7 @@ export default function Footer() {
                     <li><a href="/viewsFooter/politica.html">Política de Empresa</a></li>
                     <li><a href="/viewsFooter/terminos.html">Términos y Condiciones</a></li>
                     <li><a href="/viewsFooter/carrera.html">Carrera</a></li>
-                    <li><a href="/viewsFooter/carrera.html">Menu de Sitio</a></li>
+                    <li><a href="/viewsFooter/carrera.html">Mapa de Sitio</a></li>
                 </ul>
             </div>
 

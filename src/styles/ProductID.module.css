@@ -1,0 +1,46 @@
+
+.h1{
+    font-size: 4rem;
+    font-weight: bold;
+    margin-top: 6%;
+    margin-left: 6%;
+}
+
+.p{
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 2%;
+}
+
+.img{
+    width: 30%;
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
+    justify-content: center; /* Centra los productos */
+    gap: 5rem; /* Espacio entre productos */
+    margin: 0% 5% 5% 5%; /* Margen superior e inferior del 5% y lateral del 10% */
+}
+
+.button{
+    color: #000000; /* Color de texto */
+    text-align: center; /* Alineación de texto */
+    text-decoration: none; /* Sin decoración de texto */
+    display: inline-block; /* Elemento en línea */
+    font-size: 1.4rem; /* Tamaño de fuente */
+    font-weight: bold;
+    margin: 2%; /* Margen */
+    cursor: pointer; /* Cursor */
+    width: 10%; /* Ancho del botón */
+    margin-right: 0%; /* Margen derecho */
+    margin-left: 0%; /* Margen izquierdo */
+    padding: 1%; /* Relleno */
+    border-radius: 5px; /* Borde redondeado */
+    font-family: 'Courier New', Courier, monospace; /* Fuente */
+}

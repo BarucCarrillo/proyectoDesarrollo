@@ -1,13 +1,49 @@
 import React from 'react';
-import { getServerSession } from 'next-auth'; // Adjust the import path as necessary
+import { connectDB } from '@/utils/mongoose-db';
+import Product from '@/models/Products';  // Asegúrate de que la ruta sea correcta
+import styles from '@/styles/Products.module.css';
+import Link from 'next/link';
 
-export default async function Ladies() {
-    const session = await getServerSession();
-    console.log(session);
-    return (
-        <div>
-            <h1>Sección de damas</h1>
-            <p>Contenido de la sección de damas</p>
-        </div>
-    );
+// Conexión a la base de datos
+async function getProducts() {
+  await connectDB();  // Conectar a la base de datos
+
+  try {
+    const products = await Product.find({ gender: { $in: ['female', 'unisex'] } });  // Filtrar productos para caballeros
+    return JSON.parse(JSON.stringify(products));  // Retorna los productos de manera serializada
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
 }
+
+// Server component que obtiene los datos directamente
+export default async function Gentlemen() {
+  const products = await getProducts();  // Obtener los productos de la base de datos
+
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.h1}>Sección de Damas</h1>
+
+      <div>
+        {products.length > 0 ? (
+          <div>
+            <div className={styles.container}>
+                {products.map((product: any, index: number) => (
+                    <div className={styles.product} key={product._id}>
+                        <img className={styles.img} src={product.image} alt={`Imagen ${index + 1}`} />
+                        <Link href={`/products/${product._id}`}><h2 className={styles.h2}>{product.name}</h2></Link>
+                        <p>${product.price} USD</p>
+                        <button className={styles.button}>Carrito</button>
+                    </div>
+                ))}
+            </div>
+          </div>
+        ) : (
+          <p>No hay productos para caballeros.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+

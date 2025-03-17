@@ -1,0 +1,73 @@
+
+.h1{
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.h2{
+    font-size: 1.8rem;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.p{
+    font-size: 1.5rem;
+    text-align: left;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 2%;
+}
+
+.img{
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
+    justify-content: center; /* Centra los productos */
+    gap: 5rem; /* Espacio entre productos */
+    margin: 0% 5% 5% 5%; /* Margen superior e inferior del 5% y lateral del 10% */
+}
+
+.product {
+    flex: 1 1 calc(10% - 1rem); /* Máximo 5 por fila */
+    max-width: 30%; /* Ancho máximo para mantener uniformidad */
+    padding: 1rem;
+    border: 1px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #f8f8f8;
+    height: 100%;
+}
+
+.button{
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+/* Hacer que los productos se ajusten en pantallas pequeñas */
+@media (max-width: 1024px) {
+    .product {
+        flex: 1 1 calc(25% - 1rem); /* 3 por fila en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .product {
+        flex: 1 1 calc(50% - 1rem); /* 2 por fila en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .product {
+        flex: 1 1 100%; /* 1 por fila en móviles */
+    }
+}
