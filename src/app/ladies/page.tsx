@@ -3,6 +3,8 @@ import { connectDB } from '@/utils/mongoose-db';
 import Product from '@/models/Products';  // Asegúrate de que la ruta sea correcta
 import styles from '@/styles/Products.module.css';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 // Conexión a la base de datos
 async function getProducts() {
@@ -33,8 +35,8 @@ export default async function Gentlemen() {
                     <div className={styles.product} key={product._id}>
                         <img className={styles.img} src={product.image} alt={`Imagen ${index + 1}`} />
                         <Link href={`/products/${product._id}`}><h2 className={styles.h2}>{product.name}</h2></Link>
-                        <p>${product.price} USD</p>
-                        <button className={styles.button}>Carrito</button>
+                        <p className={styles.p}>${product.price} USD</p>
+                        <FontAwesomeIcon icon={faCartShopping} className={styles.icon} />
                     </div>
                 ))}
             </div>

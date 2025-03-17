@@ -5,13 +5,13 @@
 }
 
 .h2{
-    font-size: 1.8rem;
+    font-size: 2rem;
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .p{
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     text-align: left;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
@@ -37,20 +37,16 @@
     flex: 1 1 calc(10% - 1rem); /* Máximo 5 por fila */
     max-width: 30%; /* Ancho máximo para mantener uniformidad */
     padding: 1rem;
-    border: 1px solid #000;
     border-radius: 10px;
     text-align: center;
     background-color: #f8f8f8;
     height: 100%;
 }
 
-.button{
-    background-color: #000;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    margin-top: 1rem;
+.icon {
+    color: darkgreen;
+    margin: 0 auto;
+    width: 20%;
 }
 
 /* Hacer que los productos se ajusten en pantallas pequeñas */
