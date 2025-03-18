@@ -48,20 +48,13 @@
 }
 
 .error {
-    color: red;
-    font-size: 1.5rem;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    width: 100%;
-    text-align: center;
-    justify-content: center;
+    width: 13%;
     background-color: red;
-    color: white;
-    height: 4rem;
-    display: flex;
-    align-items: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    color: #ffffff;
 }
 
 .horizontalGroup {

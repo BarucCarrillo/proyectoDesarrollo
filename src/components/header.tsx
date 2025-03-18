@@ -68,14 +68,14 @@ export default async function Header() {
                                 </Link>
                             </li>
                             <li>
-                                <a href="#">Ofertas</a>
+                                <Link href={'/offers'}>Ofertas</Link>
                                 <ul className={styles.submenu}>
                                     <li><a href="#">Opción 1</a></li>
                                     <li><a href="#">Opción 2</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">Novedades</a>
+                                <Link href={'/news'}>Novedades</Link>
                                 <ul className={styles.submenu}>
                                     <li><a href="#">Opción 1</a></li>
                                     <li><a href="#">Opción 2</a></li>
@@ -86,7 +86,7 @@ export default async function Header() {
                                 <ul className={styles.submenu}>
                                     <li><Link href={'/ladies'}>Damas</Link></li>
                                     <li><Link href={'/gentlemen'}>Caballeros</Link></li>
-                                    <li><a href="#">Opción 2</a></li>
+                                    <li><Link href={'/unisex'}>Unisex</Link></li>
                                 </ul>
                             </li> 
                             <li> 
@@ -109,14 +109,14 @@ export default async function Header() {
                         </Link>
                     </li>
                     <li>
-                        <a href="#">Ofertas</a>
+                        <Link href={'/offers'}>Ofertas</Link>
                         <ul className={styles.submenu}>
                             <li><a href="#">Opción 1</a></li>
                             <li><a href="#">Opción 2</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Novedades</a>
+                        <Link href={'/news'}>Novedades</Link>
                         <ul className={styles.submenu}>
                             <li><a href="#">Opción 1</a></li>
                             <li><a href="#">Opción 2</a></li>
@@ -127,7 +127,7 @@ export default async function Header() {
                         <ul className={styles.submenu}>
                             <li><Link href={'/ladies'}>Damas</Link></li>
                             <li><Link href={'/gentlemen'}>Caballeros</Link></li>
-                            <li><a href="#">Opción 2</a></li>
+                            <li><Link href={'/unisex'}>Unisex</Link></li>
                         </ul>
                     </li> 
                     <li> 
