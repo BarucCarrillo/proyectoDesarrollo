@@ -1,0 +1,24 @@
+
+.h1{
+    font-size: 4.5em;
+}
+
+.container{
+    margin-bottom: 5%;
+}
+
+.genderContainer{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.img{
+    width: 90%;
+    border-radius: 1rem;
+    margin: 1%;
+}
+
+.img:hover{
+    transform: scale(1.01);
+}

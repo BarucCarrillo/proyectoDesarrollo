@@ -82,7 +82,7 @@ export default async function Header() {
                                 </ul>
                             </li>
                             <li>
-                                <a href="/views/damas.html">Generos</a>
+                                <Link href={'/gender'}>Generos</Link>
                                 <ul className={styles.submenu}>
                                     <li><Link href={'/ladies'}>Damas</Link></li>
                                     <li><Link href={'/gentlemen'}>Caballeros</Link></li>
@@ -123,7 +123,7 @@ export default async function Header() {
                         </ul>
                     </li>
                     <li>
-                        <a href="/views/damas.html">Generos</a>
+                        <Link href={'/gender'}>Generos</Link>
                         <ul className={styles.submenu}>
                             <li><Link href={'/ladies'}>Damas</Link></li>
                             <li><Link href={'/gentlemen'}>Caballeros</Link></li>

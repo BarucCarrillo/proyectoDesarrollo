@@ -17,7 +17,7 @@ function ProductPage() {
         return data;
     };
 
-    const [product, setProduct] = useState<{ image: string; name: string; description: string; price: number; stock: number } | null>(null);
+    const [product, setProduct] = useState<{ image: string; name: string; description: string; price: number; stock: number, gender: string } | null>(null);
 
     useEffect(() => {
         getProduct().then((product) => {
@@ -40,7 +40,7 @@ function ProductPage() {
             <p className={styles.p}>Stock: {product.stock}</p>
             <div className={styles.container}>
                 <Link className={styles.button} href="#">Carrito</Link>
-                <Link className={styles.button} href="/gentlemen">Volver</Link>
+                <Link className={styles.button} href={product.gender === 'male' ? '/gentlemen' : product.gender === 'female' ? '/ladies' : '/unisex'}>Volver</Link>
             </div>
         </div>
     );
