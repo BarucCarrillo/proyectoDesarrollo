@@ -1,0 +1,116 @@
+/* Contenedor principal */
+.container {
+    max-width: 80%;
+    margin: 2% auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 12%;
+}
+
+/* Título */
+.title {
+    text-align: center;
+    color: #000000;
+    font-size: 4rem;
+    margin-bottom: 2%;
+}
+
+/* Lista principal */
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.listItem {
+    margin: 21 0;
+}
+
+/* Enlaces */
+.link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    display: inline-block;
+    padding: 1% 2%;
+    border-radius: 1%;
+}
+
+.link:hover {
+    color: #fff;
+    background: #006400;
+}
+
+/* Submenús */
+.submenuTitle {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    display: inline-block;
+    padding: 1% 2%;
+    border-radius: 5px;
+}
+
+.submenu {
+    margin-top: 1%;
+    margin-left: 5%;
+    padding-left: 3%;
+    border-left: 2px solid #006400;
+    display: none;
+}
+
+/* Mostrar submenú cuando el usuario pasa el mouse */
+.listItem:hover .submenu {
+    display: block;
+}
+
+/* Animación de aparición */
+.submenu {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.listItem:hover .submenu {
+    opacity: 1;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+
+    .link {
+        padding: 2% 4%;
+        font-size: 1rem;
+    }
+
+    .submenu {
+        margin-left: 3%;
+        padding-left: 2%;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .link {
+        padding: 3% 5%;
+        font-size: 0.9rem;
+    }
+
+    .submenu {
+        margin-left: 2%;
+        padding-left: 1%;
+    }
+}

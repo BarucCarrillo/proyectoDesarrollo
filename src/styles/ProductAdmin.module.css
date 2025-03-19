@@ -63,7 +63,7 @@
 
 .product {
     flex: 1 1 calc(20% - 1rem); /* Máximo 4 por fila */
-    max-width: 30%; /* Ancho máximo para mantener uniformidad */
+    max-width: 100%; /* Ancho máximo para mantener uniformidad */
     padding: 1rem;
     border-radius: 10px;
     text-align: center;
@@ -95,18 +95,48 @@
 /* Hacer que los productos se ajusten en pantallas pequeñas */
 @media (max-width: 1024px) {
     .product {
-        flex: 1 1 calc(25% - 1rem); /* 3 por fila en pantallas medianas */
+        flex: 1 1 calc(50% - 1rem); /* 3 por fila en pantallas medianas */
+        max-width: 50%; /* Ajustar ancho máximo al tamaño de p */
+    }
+    .h2 {
+        font-size: 1.5rem; /* Ajustar tamaño del h2 */
+    }
+    .p {
+        font-size: 1rem; /* Ajustar tamaño del párrafo */
+    }
+    .icon {
+        width: 8%; /* Ajustar tamaño del icono */
     }
 }
 
 @media (max-width: 768px) {
     .product {
         flex: 1 1 calc(50% - 1rem); /* 2 por fila en pantallas pequeñas */
+        max-width: 70%; /* Ajustar ancho máximo al tamaño de p */
+    }
+    .h2 {
+        font-size: 1.8rem; /* Ajustar tamaño del h2 */
+    }
+    .p {
+        font-size: 0.9rem; /* Ajustar tamaño del párrafo */
+    }
+    .icon {
+        width: 6%; /* Ajustar tamaño del icono */
     }
 }
 
 @media (max-width: 480px) {
     .product {
         flex: 1 1 100%; /* 1 por fila en móviles */
+        max-width: 100%; /* Ajustar ancho máximo al tamaño de p */
+    }
+    .h2 {
+        font-size: 1.6rem; /* Ajustar tamaño del h2 */
+    }
+    .p {
+        font-size: 1rem; /* Ajustar tamaño del párrafo */
+    }
+    .icon {
+        width: 5%; /* Ajustar tamaño del icono */
     }
 }
