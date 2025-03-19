@@ -2,6 +2,7 @@
 
 import Styles from "../styles/Footer.module.css"; // Importamos los estilos
 import ComentarioStyles from "../styles/Comentario.module.css"; // Importamos los estilos
+import Link from "next/link"; // Importamos el componente Link
 
 /**
  * Footer component that renders the footer section of the website.
@@ -25,13 +26,13 @@ export default function Footer() {
         <footer className={Styles.footer}>
             
             <div className={Styles.row}>
-                <ul className={Styles.menu}>
-                    <li><a href="/viewsFooter/politica.html#contacto">Contacto</a></li>
-                    <li><a href="/viewsFooter/privacidad.html">Privacidad</a></li>
-                    <li><a href="/viewsFooter/politica.html">Política de Empresa</a></li>
-                    <li><a href="/viewsFooter/terminos.html">Términos y Condiciones</a></li>
-                    <li><a href="/viewsFooter/carrera.html">Carrera</a></li>
-                    <li><a href="/viewsFooter/carrera.html">Mapa de Sitio</a></li>
+                <ul>
+                    <li><Link href="/footer/contac">Contacto</Link></li>
+                    <li><Link href="/footer/privacity">Privacidad</Link></li>
+                    <li><Link href="/footer/politic">Política de Empresa</Link></li>
+                    <li><Link href="/footer/terms">Términos y Condiciones</Link></li>
+                    <li><Link href="/footer/career">Carrera</Link></li>
+                    <li><Link href="/footer/mapsite">Mapa de Sitio</Link></li>
                 </ul>
             </div>
 
