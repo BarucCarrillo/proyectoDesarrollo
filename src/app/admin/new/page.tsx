@@ -1,11 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '@/styles/NewProduct.module.css';
 
-const NewProduct: React.FC = () => {
-    // Estado inicial vacío para evitar errores
+const ProductForm: React.FC = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const productId = searchParams.get('id'); // Obtener el id del producto desde los parámetros de búsqueda
+
     const [product, setProduct] = useState({
         name: '',
         price: '',
@@ -17,37 +21,64 @@ const NewProduct: React.FC = () => {
 
     const [error, setError] = useState<string | null>(null);
 
+    // Obtener el producto si el id está presente en la URL
+    const getProduct = async () => {
+        try {
+            const res = await axios.get(`/api/products/${productId}`);
+            setProduct(res.data);
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                setError(error.response?.data.message || error.message);
+            }
+        }
+    };
+
+    // Llamar a getProduct cuando el id cambie (para editar)
+    useEffect(() => {
+        if (productId) {
+            getProduct(); // Obtener el producto para edición si existe el id
+        }
+    }, [productId]);
+
+    // Manejar el envío del formulario
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("/api/auth/newproduct", {
-                ...product,
-                price: Number(product.price),
-                stock: Number(product.stock),
-            });
+            if (productId) {
+                // Actualizar producto
+                const response = await axios.put(`/api/products/${productId}`, {
+                    ...product,
+                    price: Number(product.price),
+                    stock: Number(product.stock),
+                });
 
-            console.log('Producto agregado:', response.data);
+                console.log('Producto actualizado:', response.data);
+                alert("Producto actualizado exitosamente!");
+                router.push("/admin"); // Redirigir después de actualizar
+            } else {
+                // Crear nuevo producto
+                const response = await axios.post("/api/auth/newproduct", {
+                    ...product,
+                    price: Number(product.price),
+                    stock: Number(product.stock),
+                });
 
-            // Limpiar el formulario después de un envío exitoso
-            setProduct({
-                name: '',
-                price: '',
-                stock: '',
-                description: '',
-                image: '',
-                gender: 'unisex'
-            });
-
-            alert("Producto agregado exitosamente!");
-
-            setError("Hubo un error al agregar el producto");
-            console.error("Error al agregar el producto:", error);
-            alert("Hubo un error al agregar el producto");
-        }catch (error) {
-                if (error instanceof AxiosError) {
-                    setError(error.response?.data.message || error.message);
-             }
+                console.log('Producto agregado:', response.data);
+                alert("Producto agregado exitosamente!");
+                setProduct({
+                    name: '',
+                    price: '',
+                    stock: '',
+                    description: '',
+                    image: '',
+                    gender: 'unisex'
+                });
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                setError(error.response?.data.message || error.message);
+            }
         }
     };
 
@@ -118,10 +149,12 @@ const NewProduct: React.FC = () => {
                         <option value="female">Femenino</option>
                     </select>
                 </div>
-                <button type="submit" className={styles.button}>Agregar Producto</button>
+                <button type="submit" className={styles.button}>
+                    {productId ? 'Actualizar Producto' : 'Agregar Producto'}
+                </button>
             </form>
         </div>
     );
 };
 
-export default NewProduct;
+export default ProductForm;

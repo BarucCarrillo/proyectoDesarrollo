@@ -1,21 +1,31 @@
-import {connect, connection} from "mongoose";
+"use server"; // Asegura que solo se ejecute en el servidor
+
+import mongoose from "mongoose";
 
 const conn = {
-    isConnected: false
-}
+    isConnected: false,
+};
 
 export async function connectDB() {
     if (conn.isConnected) return;
 
-    const db = await connect("mongodb://localhost/proyectoDesarrollo")
-    console.log("Connected to MongoDB")
-    conn.isConnected = db.connections[0].readyState
+    try {
+        const db = await mongoose.connect("mongodb://localhost/proyectoDesarrollo", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        conn.isConnected = db.connections[0].readyState;
+        console.log("✅ Connected to MongoDB");
+
+    } catch (error) {
+        console.error("❌ MongoDB connection error:", error);
+    }
 }
 
-connection.on("connected", () => {
-    console.log("MongoDB connected")
-})
-
-connection.on("error", (error) => {
-    console.error("MongoDB connection error", error)
-})
+// Agregar eventos solo una vez
+if (!mongoose.connection._hasListeners) {
+    mongoose.connection.on("connected", () => console.log("🟢 MongoDB connected"));
+    mongoose.connection.on("error", (error) => console.error("🔴 MongoDB error:", error));
+    mongoose.connection._hasListeners = true;
+}

@@ -1,28 +1,43 @@
-
-import React from 'react';
-import { connectDB } from '@/utils/mongoose-db';
-import Product from '@/models/Products';  // Asegúrate de que la ruta sea correcta
+"use client";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faCircleMinus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from '@/styles/ProductAdmin.module.css';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faPen, faCircleMinus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-// Conexión a la base de datos
-async function getProducts() {
-  await connectDB();  // Conectar a la base de datos
+export default function Gentlemen() {
+  const [products, setProducts] = useState<any[]>([]);
+  const router = useRouter();
 
-  try {
-    const products = await Product.find();  // Filtrar productos para caballeros
-    return JSON.parse(JSON.stringify(products));  // Retorna los productos de manera serializada
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return [];
-  }
-}
+  // Obtener productos al cargar el componente
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        const res = await fetch("/api/products"); // Llamada a la API que obtiene los productos
+        const data = await res.json();
+        setProducts(data);  // Guardar productos en el estado local
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    }
 
-// Server component que obtiene los datos directamente
-export default async function Gentlemen() {
-  const products = await getProducts();  // Obtener los productos de la base de datos
+    getProducts();
+  }, []);
+
+  // Eliminar producto
+  const handleDelete = async (id: string) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar el producto?")) {
+      const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+
+      if (res.ok) {
+        console.log("Producto Eliminado");
+        setProducts(products.filter(product => product._id !== id)); // Eliminar producto de la UI
+      } else {
+        console.error("Error al eliminar el producto");
+      }
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -32,25 +47,24 @@ export default async function Gentlemen() {
         {products.length > 0 ? (
           <div>
             <div className={styles.containerSearch}>
-                <input type="text" placeholder="Buscar producto" className={styles.input} id="searchInput" />
-                <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.iconSearch}/><br />
+              <input type="text" placeholder="Buscar producto" className={styles.input} id="searchInput" />
+              <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.iconSearch}/><br />
             </div>
             <div className={styles.container}>
-                <button  ></button>
-                <Link className={styles.button} href={'admin/new'}>Agregar producto</Link>
+              <Link className={styles.button} href={'/admin/new'}>Agregar producto</Link>
             </div>
             <div className={styles.container}>
-                {products.map((product: any, index: number) => (
-                    <div className={styles.product} key={product._id}>
-                        <img className={styles.img} src={product.image} alt={`Imagen ${index + 1}`} />
-                        <h2 className={styles.h2}>{product.name}</h2>
-                        <p className={styles.p}>${product._id} </p>
-                        <div className={styles.containerIcons}>
-                            <FontAwesomeIcon icon={faPen} className={styles.icon}/>
-                            <FontAwesomeIcon icon={faCircleMinus} className={styles.icon}/>
-                        </div>
-                    </div>
-                ))}
+              {products.map((product) => (
+                <div className={styles.product} key={product._id}>
+                  <img className={styles.img} src={product.image} alt={product.name} />
+                  <Link href={`/products/${product._id}`}><h2 className={styles.h2}>{product.name}</h2></Link>
+                  <p className={styles.p}>${product._id} </p>
+                  <div className={styles.containerIcons}>
+                    <FontAwesomeIcon icon={faPen} className={styles.icon}   onClick={() => router.push(`/admin/new?id=${product?._id}`)}/>
+                    <FontAwesomeIcon icon={faCircleMinus} className={styles.icon} onClick={() => handleDelete(product._id)} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ) : (
@@ -60,4 +74,3 @@ export default async function Gentlemen() {
     </div>
   );
 }
-

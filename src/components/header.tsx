@@ -123,7 +123,7 @@ export default async function Header() {
                         </ul>
                     </li>
                     <li>
-                        <Link href={'/gender'}>Generos</Link>
+                        <a>Generos</a>
                         <ul className={styles.submenu}>
                             <li><Link href={'/ladies'}>Damas</Link></li>
                             <li><Link href={'/gentlemen'}>Caballeros</Link></li>
