@@ -11,7 +11,7 @@ async function getProducts() {
   await connectDB();  // Conectar a la base de datos
 
   try {
-    const products = await Product.find({price: { $lte: 60 } });  // Filtrar productos unisex con precio igual o menor a 60
+    const products = await Product.find({price: { $lte: 2000 } });  // Filtrar productos unisex con precio igual o menor a 60
     return JSON.parse(JSON.stringify(products));  // Retorna los productos de manera serializada
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -25,7 +25,7 @@ export default async function Gentlemen() {
 
   return (
     <div>
-      <h1 className={styles.h1}>Perfumes Unisex</h1>
+      <h1 className={styles.h1}>Perfumes Rebajados</h1>
 
       <div>
         {products.length > 0 ? (
@@ -42,7 +42,7 @@ export default async function Gentlemen() {
             </div>
           </div>
         ) : (
-          <p>No hay productos para caballeros.</p>
+          <p>No hay productos.</p>
         )}
       </div>
     </div>

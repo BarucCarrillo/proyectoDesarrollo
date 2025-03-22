@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectDB } from '@/utils/mongoose-db';
 import Task from '@/models/Task';
+import Admin from '@/models/Admin';
 import bcrypt from 'bcryptjs';
 
 const handler = NextAuth({
@@ -9,28 +10,35 @@ const handler = NextAuth({
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
-                email: { label: "Correo Electrónico", type: "email", placeholder: "Email" },
-                password: { label: "Contraseña", type: "password", placeholder: "********" },
+                identifier: { label: "Correo Electrónico o ID", type: "text", },
+                password: { label: "Contraseña", type: "password", },
             },
+
             async authorize(credentials) {
                 await connectDB();
-                if (!credentials?.email || !credentials?.password) {
-                    throw new Error('Email y contraseña son requeridos');
+                if (!credentials?.identifier || !credentials?.password) {
+                    throw new Error('identifier y contraseña son requeridos');
                 }
 
-                const userFound = await Task.findOne({ email: credentials.email });
-                if (!userFound) {
-                    throw new Error('Credenciales inválidas');
+                const { identifier, password } = credentials;
+                let user = null;
+                let role = null;
+        
+                // Identificar si es un usuario o un admin
+                if (identifier.includes("@")) {
+                  user = await Task.findOne({ email: identifier });
+                  role = "usuario";
+                } else {
+                  user = await Admin.findOne({ adminId: identifier });
+                  role = "admin";
                 }
-
-                const passwordMatch = await bcrypt.compare(credentials.password, userFound.password);
-                if (!passwordMatch) {
-                    throw new Error('Credenciales inválidas');
-                }
-
-                console.log('User found', userFound);
-
-                return userFound;
+        
+                if (!user) throw new Error("Usuario o administrador no encontrado");
+        
+                const isMatch = await bcrypt.compare(password, user.password);
+                if (!isMatch) throw new Error("Credenciales Incorrectas");
+        
+                return { id: user._id, role };
 
             },
         }),

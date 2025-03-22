@@ -7,50 +7,74 @@ import { useRouter } from 'next/navigation';
 
 function LoginPage() {
 
-    const [error, setError] = useState<string | null>(null);
+    const [identifier, setIdentifier] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const router = useRouter();
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    interface LoginResult {
+        error?: string;
+    }
+
+    interface Session {
+        user: {
+            role: string;
+        };
+    }
+
+    const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
+        setError("");
 
-        const formData = new FormData(e.currentTarget);
-
-        const password = formData.get('password') as string;
-        const email = formData.get('email') as string;
-
-        const res = await signIn("credentials",{
-            email,
-            password,
+        const result = await signIn("credentials", {
             redirect: false,
+            identifier,
+            password,
         });
 
-        if (res?.error) setError(res.error as string);
-
-        
-        if(res?.ok){
-            window.location.href = "/account";
+        if (!result) {
+            setError("An unexpected error occurred.");
+            return;
         }
-    }
+
+        if (result.error) {
+            setError(result.error);
+        } else {
+            const res = await fetch("/api/auth/session");
+            const session: Session = await res.json();
+
+            // Redirigir según el rol
+            if (session.user.role === "admin") {
+                router.push("/admin");
+            } else {
+                router.push("/account");
+                router.refresh();
+            }
+        }
+    };
 
     return (
         <div>
             {error && <div className={styles.error}>{error}</div>}
             <h1>Iniciar Sesión</h1>
-            <form onSubmit={handleSubmit} className={styles.form}>
+            <form onSubmit={handleLogin} className={styles.form}>
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Correo:</label>
                     <input
-                        type="email"
-                        name="email"
+                        type="text"
+                        value={identifier}
+                        onChange={(e) => setIdentifier(e.target.value)}
                         required
                         className={styles.input}
+                        title="Por favor, ingresa un correo válido que contenga letras, números, un '@' y un dominio."
                     />
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Contraseña:</label>
                     <input
                         type="password"
-                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                         className={styles.input}
                     />
@@ -60,6 +84,9 @@ function LoginPage() {
                 </button>
                 <p className={styles.redirect}>
                     ¿No tienes cuenta? <a href="/signup">Regístrate</a>
+                </p>
+                <p className={styles.redirect}>
+                    ¿Olvidaste tu contraseña? <a href="/recover-password">Recuperar</a>
                 </p>
             </form>
         </div>

@@ -33,10 +33,15 @@ export default async function Gentlemen() {
             <div className={styles.container}>
                 {products.map((product: any, index: number) => (
                     <div className={styles.product} key={product._id}>
-                        <img className={styles.img} src={product.image} alt={`Imagen ${index + 1}`} />
-                        <Link href={`/products/${product._id}`}><h2 className={styles.h2}>{product.name}</h2></Link>
-                        <p className={styles.p}>${product.price} USD</p>
-                        <FontAwesomeIcon icon={faCartShopping} className={styles.icon} />
+                      <img className={styles.img} src={product.image} alt={`Imagen ${index + 1}`} />
+                      <Link href={`/products/${product._id}`}><h2 className={styles.h2}>{product.name}</h2></Link>
+                      <p className={styles.p}>${product.price} USD</p>
+                      <Link href={"/construction"}>
+                        <FontAwesomeIcon 
+                          icon={faCartShopping} 
+                          className={styles.icon} 
+                        />
+                      </Link>
                     </div>
                 ))}
             </div>

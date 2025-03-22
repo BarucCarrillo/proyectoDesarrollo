@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import axios, { AxiosError } from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '@/styles/NewProduct.module.css';
@@ -152,6 +153,9 @@ const ProductForm: React.FC = () => {
                 <button type="submit" className={styles.button}>
                     {productId ? 'Actualizar Producto' : 'Agregar Producto'}
                 </button>
+                <Link href={"/admin"} className={styles.button} >
+                    Volver a la administración
+                </Link>
             </form>
         </div>
     );

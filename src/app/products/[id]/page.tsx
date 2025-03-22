@@ -36,10 +36,10 @@ function ProductPage() {
             <h1 className={styles.h1}>{product.name}</h1>
             </div>
             <p className={styles.p}>{product.description}</p>
-            <p className={styles.p}>${product.price} USD</p>
+            <p className={styles.p}>${product.price} MXN</p>
             <p className={styles.p}>Stock: {product.stock}</p>
             <div className={styles.container}>
-                <Link className={styles.button} href="#">Carrito</Link>
+                <Link className={styles.button} href="/construction">Carrito</Link>
                 <Link className={styles.button} href={product.gender === 'male' ? '/gentlemen' : product.gender === 'female' ? '/ladies' : '/unisex'}>Volver</Link>
             </div>
         </div>

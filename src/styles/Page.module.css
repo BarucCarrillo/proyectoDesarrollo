@@ -1,6 +1,6 @@
 .banner{
     text-align: center;
-    margin: 5%;
+    margin: 0% 5% 5% 5%;
 }
 
 .banner {
@@ -21,11 +21,19 @@
   font-size: 1.6em;
 }
 
+.h4{
+  font-size: 2rem;
+}
+
 .bannerImg {
-  width: 70%;
-  height: 70%;
+  width: 100%;
   border-radius: 5%;
-  margin-left: 20%;
+  margin: 0;
+  align-self: center; /* Centra la imagen horizontalmente dentro del contenedor flex */
+}
+
+.banner {
+  align-items: center; /* Centra los elementos verticalmente dentro del contenedor flex */
 }
 
 .columnaIzquierda {
@@ -69,8 +77,8 @@
   overflow-x: auto;
 }
 
-.perfumesContainer img {
-  width: 80%;
+.img {
+  width: 70%;
   display: block;
   margin: 0 auto;
   border-radius: 10%;

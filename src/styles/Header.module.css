@@ -1,10 +1,12 @@
 /* styles/Header.module.css */
 
+/* Contenedor de la navegación */
 .navContainer {
     padding: 2% 5%;
     position: relative;
 }
 
+/* Menú principal */
 .menu {
     list-style: none;
     padding: 0;
@@ -23,9 +25,10 @@
     font-size: 1.3rem;
     padding: 4% 6%;
     display: block;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+/* Submenú - oculto por defecto */
 .submenu {
     display: none;
     position: absolute;
@@ -46,10 +49,12 @@
     display: block;
 }
 
+/* Mostrar el submenú cuando el menú principal está en hover */
 .menu li:hover .submenu {
     display: block;
 }
 
+/* Estilo del botón de hamburguesa */
 .hamburger {
     display: none;
     font-size: 24px;
@@ -58,6 +63,7 @@
     cursor: pointer;
 }
 
+/* Menú en pantallas pequeñas */
 @media (max-width: 768px) {
     .menu {
         display: none;
@@ -70,39 +76,38 @@
         width: 100%;
         box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     }
+
     .menu.active {
         display: flex;
     }
+
+    /* El icono de hamburguesa debe aparecer */
     .hamburger {
+        display: block;
+    }
+
+    /* Submenú en pantallas pequeñas */
+    .submenu {
+        position: relative;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        background-color: #f8f8f8;
+        width: 100%;
+    }
+
+    /* Mostrar submenú al hacer hover en dispositivos móviles */
+    .menu li:focus-within .submenu {
         display: block;
     }
 }
 
-/* styles/Search.module.css */
-
-.search {
-    display: flex;
-    justify-content: center;
+/* Estilo adicional para los submenús en pantallas pequeñas */
+.submenu li {
+    width: 100%; /* Hacer que las opciones del submenú se expandan a toda la pantalla */
 }
 
-.search input[type="text"] {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.search button {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 2%;
-}
-
+/* Estilo de los botones */
 .button {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -117,6 +122,16 @@
 .button:hover {
     background-color: #006400;
     color: #f8f8f8;
+}
+
+/* Botón responsivo */
+@media (max-width: 768px) {
+    .button {
+        width: 100%; /* Ajustar el ancho del botón al 100% en pantallas pequeñas */
+        font-size: 1.2rem; /* Aumentar ligeramente el tamaño de la fuente */
+        padding: 10px; /* Agregar un poco de relleno */
+        background-color: transparent; /* Sin fondo */
+    }
 }
 
 :global(h1) {

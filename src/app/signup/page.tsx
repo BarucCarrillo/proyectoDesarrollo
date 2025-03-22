@@ -54,6 +54,7 @@ function SignupPage() {
             });
 
             console.log(updateResponse);
+            router.refresh();
             router.push("/account");
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -88,11 +89,11 @@ function SignupPage() {
 
                 console.log(signupResponse);
 
-                const email = formData.get('email') as string;
+                const identifier = formData.get('email') as string;
                 const password = formData.get('password') as string;
 
                 const res = await signIn("credentials", {
-                    email,
+                    identifier,
                     password,
                     redirect: false,
                 });
@@ -132,7 +133,12 @@ function SignupPage() {
                         required
                         className={styles.input}
                         value={task?.firstName || ''}
-                        onChange={(e) => setTask({ ...task, firstName: e.target.value })}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^[a-zA-Z\s]*$/.test(value) && value.length <= 30) {
+                                setTask({ ...task, firstName: value });
+                            }
+                        }}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -143,7 +149,12 @@ function SignupPage() {
                         required
                         className={styles.input}
                         value={task?.lastName || ''}
-                        onChange={(e) => setTask({ ...task, lastName: e.target.value })}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^[a-zA-Z\s]*$/.test(value) && value.length <= 50) {
+                                setTask({ ...task, lastName: value });
+                            }
+                        }}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -153,20 +164,24 @@ function SignupPage() {
                         name="email"
                         required
                         className={styles.input}
-                        id='email'
+                        id="email"
                         value={task?.email || ''}
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                        title="Formato incorrecto: ejemplo@ejemplo.com"
                         onChange={(e) => setTask({ ...task, email: e.target.value })}
                     />
                 </div>
                 {!params.id && (
                     <div className={styles.formGroup}>
-                        <label className={styles.label}>Confirmación de Correo:</label>
+                        <label className={styles.label}>Confirmar Correo:</label>
                         <input
                             type="email"
                             name="confirmEmail"
                             required
                             className={styles.input}
-                            id='confirmEmail'
+                            id="confirmEmail"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                            title="Formato incorrecto: ejemplo@ejemplo.com"
                             onInput={(e) => {
                                 const email = (document.getElementById('email') as HTMLInputElement).value;
                                 const confirmEmail = (e.target as HTMLInputElement).value;
@@ -187,6 +202,8 @@ function SignupPage() {
                         required
                         className={styles.input}
                         id="password"
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                        title="La contraseña debe tener al menos 8 caracteres, incluyendo letras mayúsculas, minúsculas, números y caracteres especiales."
                         onChange={(e) => setTask({ ...task, password: e.target.value })}
                     />
                 </div>
@@ -197,6 +214,7 @@ function SignupPage() {
                             type="password"
                             name="confirmPassword"
                             required
+                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
                             className={styles.input}
                             id="confirmPassword"
                             onInput={(e) => {
@@ -217,9 +235,16 @@ function SignupPage() {
                         type="text"
                         name="calle"
                         required
+                        pattern="[a-zA-Z\s]*"
                         className={styles.input}
                         value={task?.domicilio?.calle || ''}
-                        onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, calle: e.target.value } })}
+                        title="Solo se permiten letras y espacios."
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^[a-zA-Z\s]*$/.test(value)) {
+                                setTask({ ...task, domicilio: { ...task.domicilio, calle: value } });
+                            }
+                        }}
                     />
                 </div>
                 <div className={styles.horizontalGroup}>
@@ -232,6 +257,7 @@ function SignupPage() {
                             className={styles.input}
                             pattern="\d*"
                             value={task?.domicilio?.numeroExterior || ''}
+                            title="Solo se permiten números."
                             onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, numeroExterior: e.target.value } })}
                         />
                     </div>
@@ -243,6 +269,7 @@ function SignupPage() {
                             className={styles.inputNI}
                             pattern="\d*"
                             value={task?.domicilio?.numeroInterior || ''}
+                            title="Solo se permiten números."
                             onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, numeroInterior: e.target.value } })}
                         />
                     </div>
@@ -253,9 +280,16 @@ function SignupPage() {
                         type="text"
                         name="colonia"
                         required
+                        pattern="[a-zA-Z\s]*"
                         className={styles.input}
                         value={task?.domicilio?.colonia || ''}
-                        onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, colonia: e.target.value } })}
+                        title="Solo se permiten letras y espacios."
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^[a-zA-Z\sñÑ]*$/.test(value)) {
+                                setTask({ ...task, domicilio: { ...task.domicilio, colonia: value } });
+                            }
+                        }}
                     />
                 </div>
                 <div className={styles.horizontalGroup}>
@@ -265,14 +299,28 @@ function SignupPage() {
                             type="text"
                             name="municipio"
                             required
+                            pattern="[a-zA-Z\s]*"
                             className={styles.input}
                             value={task?.domicilio?.municipio || ''}
-                            onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, municipio: e.target.value } })}
+                            title="Solo se permiten letras y espacios."
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (/^[a-zA-Z\s]*$/.test(value)) {
+                                    setTask({ ...task, domicilio: { ...task.domicilio, municipio: value } });
+                                }
+                            }}
                         />
                     </div>
                     <div className={styles.select}>
                         <label className={styles.labelS}>Estado:</label>
-                        <select name="estado" required className={styles.selectO} value={task?.domicilio?.estado || ''} onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, estado: e.target.value } })}>
+                        <select
+                            name="estado"
+                            required
+                            className={styles.selectO}
+                            value={task?.domicilio?.estado || ''}
+                            title="Seleccione un estado."
+                            onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, estado: e.target.value } })}
+                        >
                             <option value="">Seleccione un estado</option>
                             <option value="Aguascalientes">Aguascalientes</option>
                             <option value="Baja California">Baja California</option>
@@ -314,8 +362,10 @@ function SignupPage() {
                             type="text"
                             name="codigoPostal"
                             required
+                            pattern="\d*"
                             className={styles.inputC}
                             value={task?.domicilio?.codigoPostal || ''}
+                            title="Solo se permiten números."
                             onChange={(e) => setTask({ ...task, domicilio: { ...task.domicilio, codigoPostal: e.target.value } })}
                         />
                     </div>

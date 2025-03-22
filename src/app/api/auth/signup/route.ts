@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import Task from "@/models/Task";
 import bcrypt from "bcryptjs";
-import {connectDB} from "@/utils/mongoose-db";
+import { connectDB } from "@/utils/mongoose-db";
+import crypto from 'crypto';
 
-export async function POST(request: Request){
-
+export async function POST(request: Request) {
     const { firstName, lastName, email, password, domicilio } = await request.json();
     console.log(email, password);
-
 
     try {     
         await connectDB();
@@ -25,6 +24,11 @@ export async function POST(request: Request){
 
         const hashPassword = await bcrypt.hash(password, 10);
 
+        // Generar un resetToken aleatorio
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        // Establecer la expiración del token (ejemplo: 1 hora desde ahora)
+        const tokenExpiry = new Date(Date.now() + 3600000); 
+
         const user = new Task({
             firstName,
             lastName,
@@ -38,8 +42,7 @@ export async function POST(request: Request){
                 municipio: domicilio.municipio || "",
                 estado: domicilio.estado || "",
                 codigoPostal: domicilio.codigoPostal || "",
-                pais: domicilio.pais || "México" // Valor por defecto
-            }
+            },
         });
 
         await user.save();
@@ -53,11 +56,11 @@ export async function POST(request: Request){
             }
         );
     } catch (error) {     
-       console.log(error);
-       return NextResponse.json({
-              message: 'Error al crear el usuario'
-         }, {
-              status: 400
-       });
+        console.log(error);
+        return NextResponse.json({
+            message: 'Error al crear el usuario'
+        }, {
+            status: 400
+        });
     }
 }
