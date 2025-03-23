@@ -52,10 +52,14 @@ function UserDashboard() {
     }
 
     useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/login");
+        }
+
         if (session?.user?.id) {
             getTask();
         }
-    }, [session?.user?.id]);
+    }, [session?.user?.id, status]);
 
     return (
         <div>

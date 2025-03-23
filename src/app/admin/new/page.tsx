@@ -87,83 +87,107 @@ const ProductForm: React.FC = () => {
         <div>
             {error && <div className={styles.error}>{error}</div>}
             <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Nombre del Producto:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        className={styles.input}
-                        value={product.name}
-                        onChange={(e) => setProduct({ ...product, name: e.target.value })}
-                        required
-                        minLength={3}
-                        maxLength={50}
-                    />
+            <div className={styles.formGroup}>
+                <label className={styles.label}>Nombre del Producto:</label>
+                <input
+                type="text"
+                name="name"
+                className={styles.input}
+                value={product.name}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^[a-zA-Z0-9\s]*$/.test(value)) {
+                    setProduct({ ...product, name: value });
+                    }
+                }}
+                required
+                minLength={3}
+                maxLength={50}
+                title="Debe contener entre 3 y 50 caracteres alfanuméricos."
+                />
 
-                    <label className={styles.label}>Precio del Producto:</label>
-                    <input
-                        type="number"
-                        name="price"
-                        className={styles.input}
-                        value={product.price}
-                        onChange={(e) => setProduct({ ...product, price: e.target.value })}
-                        required
-                        min={500.00}
-                        step={0.01}
-                    />
+                <label className={styles.label}>Precio del Producto:</label>
+                <input
+                type="number"
+                name="price"
+                className={styles.input}
+                value={product.price}
+                onChange={(e) => setProduct({ ...product, price: e.target.value })}
+                required
+                min={500.00}
+                step={0.01}
+                title="Debe ser un número mayor o igual a 500.00."
+                />
 
-                    <label className={styles.label}>Stock del Producto:</label>
-                    <input
-                        type="number"
-                        name="stock"
-                        className={styles.input}
-                        value={product.stock}
-                        onChange={(e) => setProduct({ ...product, stock: e.target.value })}
-                        required
-                        min={10}
-                        step={1}
-                    />
+                <label className={styles.label}>Stock del Producto:</label>
+                <input
+                type="number"
+                name="stock"
+                className={styles.input}
+                value={product.stock}
+                onChange={(e) => setProduct({ ...product, stock: e.target.value })}
+                required
+                min={10}
+                step={1}
+                title="Debe ser un número entero mayor o igual a 10."
+                />
 
-                    <label className={styles.label}>Descripción del Producto:</label>
-                    <textarea
-                        name="description"
-                        className={styles.input}
-                        value={product.description}
-                        onChange={(e) => setProduct({ ...product, description: e.target.value })}
-                        required
-                        minLength={10}
-                        maxLength={500}
-                    />
+                <label className={styles.label}>Descripción del Producto:</label>
+                <textarea
+                name="description"
+                className={styles.input}
+                value={product.description}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^[a-zA-Z0-9\s]*$/.test(value)) { 
+                    setProduct({ ...product, description: value });
+                    }
+                }}
+                required
+                minLength={10}
+                maxLength={500}
+                title="Debe contener entre 10 y 500 caracteres alfanuméricos."
+                />
 
-                    <label className={styles.label}>Imagen del Producto (URL):</label>
-                    <input
-                        type="url"
-                        name="image"
-                        className={styles.input}
-                        value={product.image}
-                        onChange={(e) => setProduct({ ...product, image: e.target.value })}
-                        required
-                    />
+                <label className={styles.label}>Imagen del Producto (URL):</label>
+                <input
+                type="url"
+                name="image"
+                className={styles.input}
+                value={product.image}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    try {
+                    new URL(value); 
+                    setProduct({ ...product, image: value });
+                    } catch {
+                    setProduct({ ...product, image: '' }); 
+                    }
+                }}
+                required
+                title="Debe ser una URL válida."
+                />
 
-                    <label className={styles.label}>Género:</label>
-                    <select
-                        name="gender"
-                        className={styles.input}
-                        value={product.gender}
-                        onChange={(e) => setProduct({ ...product, gender: e.target.value })}
-                        required
-                    >
-                        <option value="unisex">Unisex</option>
-                        <option value="male">Masculino</option>
-                        <option value="female">Femenino</option>
-                    </select>
-                </div>
-                <button type="submit" className={styles.button}>
-                    {productId ? 'Actualizar Producto' : 'Agregar Producto'}
-                </button>
-                <Link href={"/admin"} className={styles.button} >
-                    Volver a la administración
-                </Link>
+                <label className={styles.label}>Género:</label>
+                <select
+                name="gender"
+                className={styles.input}
+                value={product.gender}
+                onChange={(e) => setProduct({ ...product, gender: e.target.value })}
+                required
+                title="Seleccione un género."
+                >
+                <option value="unisex">Unisex</option>
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                </select>
+            </div>
+            <button type="submit" className={styles.button}>
+                {productId ? 'Actualizar Producto' : 'Agregar Producto'}
+            </button>
+            <Link href={"/admin"} className={styles.button} >
+                Volver a la administración
+            </Link>
             </form>
         </div>
     );

@@ -37,24 +37,35 @@ const SuggestionForm = () => {
       <h2 className={styles.titulocomentario}>Enviar sugerencia</h2>
       {status && <p className={styles.status}>{status}</p>}
       <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Tu correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className={styles.email}
-        />
-        <textarea
-          placeholder="Escribe tu sugerencia"
-          value={suggestion}
-          onChange={(e) => setSuggestion(e.target.value)}
-          required
-          className={styles.cajacomentario}
-        />
-        <button type="submit" className={styles.botonComentario}>Enviar sugerencia</button>
+      <input
+        type="email"
+        placeholder="Tu correo electrónico"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className={styles.email}
+      />
+      {email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && (
+        <p className={styles.error}>Por favor, ingresa un correo válido.</p>
+      )}
+      <textarea
+        placeholder="Escribe tu sugerencia"
+        value={suggestion}
+        onChange={(e) => setSuggestion(e.target.value)}
+        required
+        className={styles.cajacomentario}
+      />
+      {suggestion && suggestion.length < 10 && (
+        <p className={styles.error}>La sugerencia debe tener al menos 10 caracteres.</p>
+      )}
+      <button
+        type="submit"
+        className={styles.botonComentario}
+        disabled={!email || !suggestion || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || suggestion.length < 10}
+      >
+        Enviar sugerencia
+      </button>
       </form>
-      
     </div>
   );
 };

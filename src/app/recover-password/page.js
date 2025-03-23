@@ -28,7 +28,7 @@ return (
         e.preventDefault();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-          setMessage("Por favor, ingresa un correo electrónico válido.");
+          setMessage("Por favor, ingresa un correo electrónico válido. ejemplo@dominio.com");
           return;
         }
         handleSubmit(e);

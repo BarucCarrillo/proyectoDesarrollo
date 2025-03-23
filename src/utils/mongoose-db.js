@@ -1,4 +1,4 @@
-"use server"; // Asegura que solo se ejecute en el servidor
+"use server"; 
 
 import mongoose from "mongoose";
 
@@ -20,7 +20,6 @@ export async function connectDB() {
     }
 }
 
-// Agregar eventos solo una vez
 if (!mongoose.connection._hasListeners) {
     mongoose.connection.on("connected", () => console.log("🟢 MongoDB connected"));
     mongoose.connection.on("error", (error) => console.error("🔴 MongoDB error:", error));
