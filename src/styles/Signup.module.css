@@ -9,6 +9,18 @@
     margin-bottom: 10%;
 }
 
+.h1 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 5rem;
+    margin: 1% 0;
+}
+
+.a:hover {
+    color: darkgreen;
+}
+
+
 .form h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;

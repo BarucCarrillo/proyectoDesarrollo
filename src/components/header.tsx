@@ -42,7 +42,7 @@ export default function Header() {
                                 <Link href={'/news'}>Novedades</Link>
                             </li>
                             <li>
-                                <a>Generos</a>
+                                <a className={styles.a}>Generos</a>
                                 <ul className={styles.submenu}>
                                     <li><Link href={'/ladies'}>Damas</Link></li>
                                     <li><Link href={'/gentlemen'}>Caballeros</Link></li>
@@ -61,7 +61,7 @@ export default function Header() {
                                 <Link href={'/news'}>Novedades</Link>
                             </li>
                             <li>
-                                <a>Generos</a>
+                                <a className={styles.a}>Generos</a>
                                 <ul className={styles.submenu}>
                                     <li><Link href={'/ladies'}>Damas</Link></li>
                                     <li><Link href={'/gentlemen'}>Caballeros</Link></li>

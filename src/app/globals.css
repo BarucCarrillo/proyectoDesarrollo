@@ -109,6 +109,18 @@
   }
 }
 
+@layer base {
+  .h1 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 5rem;
+    margin: 1% 0;
+  }
+
+  .a:hover {
+    color: darkgreen;
+  }
+}
 
 
 @layer base {

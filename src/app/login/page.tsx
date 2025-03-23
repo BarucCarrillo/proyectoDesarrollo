@@ -56,7 +56,7 @@ function LoginPage() {
     return (
         <div>
             {error && <div className={styles.error}>{error}</div>}
-            <h1>Iniciar Sesión</h1>
+            <h1 className={styles.h1}>Iniciar Sesión</h1>
             <form onSubmit={handleLogin} className={styles.form}>
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Correo:</label>

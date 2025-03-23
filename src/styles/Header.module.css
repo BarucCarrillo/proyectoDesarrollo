@@ -134,13 +134,13 @@
     }
 }
 
-:global(h1) {
+.h1 {
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 5rem;
     margin: 1% 0;
 }
 
-:global(a:hover) {
+.a:hover {
     color: darkgreen;
 }

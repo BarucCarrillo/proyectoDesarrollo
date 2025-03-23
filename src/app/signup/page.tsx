@@ -121,7 +121,7 @@ function SignupPage() {
     return (
         <div>
             {error && <div className={styles.error}>{error}</div>}
-            <h1>
+            <h1 className={styles.h1}>
                 {!params.id ? "Registro" : "Editar Cuenta"}
             </h1>
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -167,7 +167,7 @@ function SignupPage() {
                         id="email"
                         value={task?.email || ''}
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                        title="Formato incorrecto: ejemplo@ejemplo.com"
+                        title="Formato correcto: ejemplo@ejemplo.com"
                         onChange={(e) => setTask({ ...task, email: e.target.value })}
                     />
                 </div>
@@ -181,7 +181,7 @@ function SignupPage() {
                             className={styles.input}
                             id="confirmEmail"
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                            title="Formato incorrecto: ejemplo@ejemplo.com"
+                            title="Formato correcto: ejemplo@ejemplo.com"
                             onInput={(e) => {
                                 const email = (document.getElementById('email') as HTMLInputElement).value;
                                 const confirmEmail = (e.target as HTMLInputElement).value;

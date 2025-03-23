@@ -11,7 +11,7 @@ async function getProducts() {
   await connectDB();  // Conectar a la base de datos
 
   try {
-    const products = await Product.find({ gender: { $in: ['female', 'unisex'] } });  // Filtrar productos para caballeros
+    const products = await Product.find({ gender: { $in: ['female', 'unisex'] } });  // Filtrar productos para mujeres
     return JSON.parse(JSON.stringify(products));  // Retorna los productos de manera serializada
   } catch (error) {
     console.error('Error fetching products:', error);
