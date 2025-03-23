@@ -9,7 +9,7 @@ export async function POST(req) {
         const { email } = await req.json();
         if (!email) return Response.json({ message: "Email es requerido" }, { status: 400 });
 
-        await connectDB(); // Asegurar conexión a MongoDB
+        await connectDB(); 
 
         const user = await Task.findOne({ email });
 

@@ -26,7 +26,6 @@ export default function Gentlemen() {
   const [products, setProducts] = useState<any[]>([]);
   const router = useRouter();
 
-  // Obtener productos al cargar el componente
   useEffect(() => {
 
     if (status === "loading") return;
@@ -37,7 +36,7 @@ export default function Gentlemen() {
       try {
         const res = await fetch("/api/products"); // Llamada a la API que obtiene los productos
         const data = await res.json();
-        setProducts(data);  // Guardar productos en el estado local
+        setProducts(data);  
       } catch (error) {
         console.error('Error fetching products:', error);
       }

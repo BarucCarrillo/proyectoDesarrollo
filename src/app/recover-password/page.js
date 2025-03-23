@@ -20,25 +20,36 @@ export default function RecoverPasswordPage() {
   };
 
 return (
-    <div className="flex flex-col items-center justify-center font-sans">
-        <h2 className="mb-5 text-2xl font-semibold">Recuperar Contraseña</h2>
-        {message && <p className="mb-5 text-green-500">{message}</p>}
-        <form onSubmit={handleSubmit} className="flex flex-col items-center w-72">
-            <input
-                type="email"
-                placeholder="Tu correo electrónico"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="p-2 mb-3 w-full border border-gray-300 rounded"
-            />
-            <button
-                type="submit"
-                className="p-2 w-full bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-                Recuperar
-            </button>
-        </form>
-    </div>
+  <div className="flex flex-col items-center justify-center font-sans">
+    <h2 className="mb-5 text-2xl font-semibold">Recuperar Contraseña</h2>
+    {message && <p className="mb-5 text-green-500">{message}</p>}
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          setMessage("Por favor, ingresa un correo electrónico válido.");
+          return;
+        }
+        handleSubmit(e);
+      }}
+      className="flex flex-col items-center w-72"
+    >
+      <input
+        type="email"
+        placeholder="Tu correo electrónico"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="p-2 mb-3 w-full border border-gray-300 rounded"
+      />
+      <button
+        type="submit"
+        className="p-2 w-full bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Recuperar
+      </button>
+    </form>
+  </div>
 );
 }

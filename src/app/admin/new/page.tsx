@@ -96,6 +96,8 @@ const ProductForm: React.FC = () => {
                         value={product.name}
                         onChange={(e) => setProduct({ ...product, name: e.target.value })}
                         required
+                        minLength={3}
+                        maxLength={50}
                     />
 
                     <label className={styles.label}>Precio del Producto:</label>
@@ -106,6 +108,8 @@ const ProductForm: React.FC = () => {
                         value={product.price}
                         onChange={(e) => setProduct({ ...product, price: e.target.value })}
                         required
+                        min={500.00}
+                        step={0.01}
                     />
 
                     <label className={styles.label}>Stock del Producto:</label>
@@ -116,6 +120,8 @@ const ProductForm: React.FC = () => {
                         value={product.stock}
                         onChange={(e) => setProduct({ ...product, stock: e.target.value })}
                         required
+                        min={10}
+                        step={1}
                     />
 
                     <label className={styles.label}>Descripción del Producto:</label>
@@ -125,11 +131,13 @@ const ProductForm: React.FC = () => {
                         value={product.description}
                         onChange={(e) => setProduct({ ...product, description: e.target.value })}
                         required
+                        minLength={10}
+                        maxLength={500}
                     />
 
                     <label className={styles.label}>Imagen del Producto (URL):</label>
                     <input
-                        type="text"
+                        type="url"
                         name="image"
                         className={styles.input}
                         value={product.image}

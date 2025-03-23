@@ -1,7 +1,7 @@
 "use client";
 
-import Styles from "../styles/Footer.module.css"; // Importamos los estilos
-import Link from "next/link"; // Importamos el componente Link
+import Styles from "../styles/Footer.module.css"; 
+import Link from "next/link"; 
 import SuggestionForm from "./SuggestionForm";
 
 /**

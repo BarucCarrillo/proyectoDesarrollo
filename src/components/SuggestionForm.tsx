@@ -1,4 +1,3 @@
-// components/SuggestionForm.js
 import { useState } from 'react';
 import	styles from'@/styles/Comentario.module.css';
 
